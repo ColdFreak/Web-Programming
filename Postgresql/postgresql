@@ -47,6 +47,7 @@ Type "help" for help.
 postgres=# ALTER USER vagrant CREATEDB;
 ALTER ROLE
 
+
 blogappというDBにpostsという名前のテーブルをmyposts名前にへんこする
 名前が変わってることは\dtで確認
 blogapp=> alter table posts rename to myposts;
@@ -69,3 +70,39 @@ blogapp(> id serial primary key
 blogapp(> );
 CREATE TABLE
 
+
+下の例では制約のcheckを使って，bodyの文字数は５以上でないと登録できないようにしている
+blogapp=> create table posts (
+blogapp(> body text check(length(body) > 5)
+blogapp(> );
+CREATE TABLE
+
+
+下の例では制約のdefaultを使って，デフォルト値を設定する．
+blogapp=> create table posts (
+blogapp(> is_draft boolean default TRUE,
+blogapp(> created timestamp default 'now'
+blogapp(> );
+CREATE TABLE
+
+\xという拡張表示を使って，レコードを見やすくする．
+もう一回\x を入れると，offにすることができる
+blogapp=> \x
+Expanded display is on.
+blogapp=> select * from posts;
+-[ RECORD 1 ]------------------------
+is_draft | t
+created  | 2014-07-26 16:51:37.056765
+
+
+'_'(アンダーバー)はlikeの中に使われて，任意の一文字を表すことができる．
+
+
+'order by'の後ろに複数のフィールドを指定することができる
+select * from users order by team, score desc;
+上の文だとteamの中にscoreを降順で並び替え，team自体は昇順で並び替える，
+
+
+'offset'で開始行を指定することができる
+select * from users limit 3 offset 3;
+offsetは0番から始まるので，3を指定すると4番目のレコードから表示させる．
