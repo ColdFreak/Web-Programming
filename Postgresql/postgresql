@@ -244,3 +244,6 @@ test_tableのdescriptionカラムのもとの型textをvarchar(255)に変更す�
 dvdrental=# alter table test_table alter description type varchar(255);
 
 
+下の二つの文はテーブルとテーブルのカラムへコメントする
+dvdrental=# comment on table actor is 'this is my table.';
+dvdrental=# comment on column actor.first_name is 'this is the first name';
