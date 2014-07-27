@@ -201,3 +201,23 @@ random()を利用して，ランダムのレコードを取り出すことがで
 下の句は実行するたびにランダムにレコードを表示させる．
 dvdrental=# select * from actor order by random() limit 1;
 
+
+関数機能を使って，自作の関数を作る．actorテーブルに
+レコードの総数を集計するtotalRecords関数を作って,
+select totalRecord()で呼び出す
+
+dvdrental=# create or replace function totalRecords()
+returns integer as $total$
+declare
+	total integer;
+begin
+	select count(*) into total from actor;
+	return total;
+end;
+$total$ language plpgsql;
+CREATE FUNCTION
+dvdrental=# select totalRecords();
+ totalrecords
+--------------
+          200
+(1 row)
