@@ -221,3 +221,26 @@ dvdrental=# select totalRecords();
 --------------
           200
 (1 row)
+
+
+update句の中に下のような書き方もできる
+今のamountの上に10をプラスする．
+dvdrental=# update payment set amount = amount+10.0 where payment_id = 17503;
+
+
+テーブルにカラムを追加する
+actorテーブルにfull_nameというカラムを追加して，このカラムの型は
+varchar(255)にする
+dvdrental=# alter table actor add full_name varchar(255);
+
+actorテーブルのfull_nameカラムを削除する場合は
+dvdrental=# alter table actor drop full_name;
+ALTER TABLE
+
+actorテーブルのfirst_nameカラムの名前をmy_nameに変更する場合は
+dvdrental=# alter table actor rename first_name to my_name;
+
+test_tableのdescriptionカラムのもとの型textをvarchar(255)に変更する
+dvdrental=# alter table test_table alter description type varchar(255);
+
+
