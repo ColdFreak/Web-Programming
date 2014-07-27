@@ -16,3 +16,6 @@ sudo yum install mongodb-org
 $ mongo --version
 MongoDB shell version: 2.6.3
 
+
+nodeはインタラクティブな環境で試す
+
