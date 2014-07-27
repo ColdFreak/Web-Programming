@@ -247,3 +247,17 @@ dvdrental=# alter table test_table alter description type varchar(255);
 下の二つの文はテーブルとテーブルのカラムへコメントする
 dvdrental=# comment on table actor is 'this is my table.';
 dvdrental=# comment on column actor.first_name is 'this is the first name';
+
+
+pg_database_sizeとpg_size_prettyはデータベースの大きさをはかる関数
+dvdrental=# select pg_database_size('dvdrental');
+pg_database_size
+------------------
+14772408
+(1 row)
+
+dvdrental=# select pg_size_pretty(pg_database_size('dvdrental'));
+pg_size_pretty
+----------------
+14 MB
+(1 row)
