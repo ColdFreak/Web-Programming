@@ -106,3 +106,98 @@ select * from users order by team, score desc;
 'offset'で開始行を指定することができる
 select * from users limit 3 offset 3;
 offsetは0番から始まるので，3を指定すると4番目のレコードから表示させる．
+
+
+http://www.postgresqltutorial.com/load-postgresql-sample-database/
+上のウェブサイトからサンプルdvdrental.tarをvagrantユーザの作ったdvdrentalDBに入れるときに権限がないと言われて,\duでしらべてみる
+postgres=# \du
+List of roles
+Role name |                   Attributes                   | Member of
+-----------+------------------------------------------------+-----------
+postgres  | Superuser, Create role, Create DB, Replication | {}
+vagrant   | Create DB                           | {}
+wang      |
+
+そしてvagrantユーザをsuperuserになってもらう
+postgres=# alter role vagrant superuser;
+ALTER ROLE
+
+これでpg_storeを使って，dvdrental.tarをいれることができた
+$ pg_restore -U vagrant -d dvdrental dvdrental.tar
+
+
+paymentテーブルにcustomer_idごとにいくらお金を使っているかを集計してから
+having を使って，その中にさらに150ドル以上がかかるcustomer_idを順番にリストアップする
+dvdrental=#select customer_id, sum(amount) from payment group by customer_id having sum(amount) > 150 order sum;
+customer_id |  sum
+-------------+--------
+         176 | 151.68
+         550 | 151.69
+         187 | 151.73
+         372 | 152.68
+         462 | 152.69
+         468 | 154.66
+         259 | 154.70
+         373 | 156.66
+         470 | 157.69
+         469 | 158.65
+         522 | 161.68
+         403 | 162.67
+         236 | 166.61
+         410 | 167.62
+         181 | 167.67
+         459 | 183.63
+         144 | 189.60
+         137 | 191.62
+         178 | 194.61
+         526 | 208.58
+         148 | 211.55
+(21 rows)
+
+
+下の句はlength関数を使って, actor_idごとにfirst_nameカラムの文字列の長さを表示させる．
+dvdrental=#select actor_id, first_name, length(first_name) as first_name_length from actor;
+actor_id | first_name  | first_name_length
+----------+-------------+-------------------
+1 | Penelope    |                 8
+2 | Nick        |                 4
+3 | Ed          |                 2
+4 | Jennifer    |                 8
+
+
+concat関数を使った，actorテーブルのfirst_nameとlast_nameの間にスペースで連結することができる．
+dvdrental=#select concat(first_name, ' ', last_name) as name from actor;
+         name
+----------------------
+ Penelope Guiness
+ Nick Wahlberg
+ Ed Chase
+ Jennifer Davis
+ Johnny Lollobrigida
+ Bette Nicholson
+......
+
+
+substring関数を使って，last_nameカラムの一つ目の文字から，二つの文字だけを表示させる．
+dvdrental=# select substring(last_name, 1, 2) as first_two_chars_of_last_name from actor;
+first_two_chars_of_last_name
+------------------------------
+Gu
+Wa
+Ch
+Da
+Lo
+......
+
+
+random()関数を使って，1未満の数字を表示する
+dvdrental=# select random();
+random
+-------------------
+0.837772259488702
+(1 row)
+
+random()を利用して，ランダムのレコードを取り出すことができる
+下の句は実行するたびにランダムにレコードを表示させる．
+dvdrental=# select * from actor order by random() limit 1;
+
