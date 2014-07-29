@@ -1,2 +1,13 @@
 javascriptの関数の一つはgetElementsByName, 複数形式に注意
 
+
+JQueryを使って、idイコールcheckbox_1のチェックボックスをチェックされているかの関数
+function submitbox() {
+  if ($('#checkbox_1').is(':checked')) {
+	  alert("checked");
+  } else {
+	alert("not checked");
+  }
+}
+
+
