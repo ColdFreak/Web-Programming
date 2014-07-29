@@ -1,7 +1,7 @@
 javascriptの関数の一つはgetElementsByName, 複数形式に注意
 
 
-JQueryを使って、idイコールcheckbox_1のチェックボックスをチェックされているかの関数
+JQueryを使って、checkbox_1というidのチェックボックスをチェックされているかの関数
 function submitbox() {
   if ($('#checkbox_1').is(':checked')) {
 	  alert("checked");
@@ -9,5 +9,10 @@ function submitbox() {
 	alert("not checked");
   }
 }
+
+
+window opener を使って、親windowの関数を呼び出すことができる。
+そして、myFunc()が親window中のオブジェクトをいじることができる。
+window.opener.myFunc();
 
 
