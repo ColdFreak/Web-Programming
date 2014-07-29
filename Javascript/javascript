@@ -11,8 +11,11 @@ function submitbox() {
 }
 
 
-window opener を使って、親windowの関数を呼び出すことができる。
+window opener を使って、for文使って, 親windowの関数を連続呼び出すことができる。
 そして、myFunc()が親window中のオブジェクトをいじることができる。
 window.opener.myFunc();
+親windowのmyFunc関数に$("p").append("sample text");など
+のものによって、新しいオブジェクトを生成することができる。
+
 
 
