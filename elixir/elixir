@@ -1,39 +1,6 @@
-elixirファイルの拡張しは'.ex', elixircでコンパイルする
-$ elixirc test.ex
-
-スクリプトモードのelixirファイルの拡張子は'.exs'
-実行するのに下のコマンドを使う
-$ elixir test.exs
-
-
-String モジュールで，文字列の長さをはかる
-iex(1)> String.length "こんにちは"
-5
-
-
-defpで定義したのはprivate関数で直接
-呼び出すと，エラーになる．
-defmodule Math do
-    def sum(a, b) do
-		IO.puts do_sum(a, b)
-    end
-
-    defp do_sum(a, b) do
-		a + b
-    end
-end
-
-Math.sum(1, 2) #=> 3
-#Math.do_sum(1, 2) #=> ** (UndefinedFunctionError)
-
-
-レコードを定義するにはdefrecordを使う．
-定義した後に新しいレコードをnewで作成する
-iex(3)> defrecord Person, name: nil, age: 0, height: 0
-{:module, Person,
- <<70, 79, 82, 49, 0, 0, 16, 232, 66, 69, 65, 77, 65, 116, 111, 109, 0, 0, 1, 0, 0, 0, 0, 29, 13, 69, 108, 105, 120, 105, 114, 46, 80, 101, 114, 115, 111, 110, 8, 95, 95, 105, 110, 102, 111, 95, 95, 4, 100, 111, ...>>,
- nil}
-iex(4)> joe_info = Person.new(name: "Joe", age: 30, height: 180)
-Person[name: "Joe", age: 30, height: 180]
-iex(5)> joe_info.name
-"Joe"
+Comprehensionsはgenerators, filters, collectables
+三つの要素で構成されている
+iex(11)> for n <- [1,2,3,4], do: n*n
+[1, 4, 9, 16]
+iex(12)> for n <- 1..4, do: n*n
+[1, 4, 9, 16]
