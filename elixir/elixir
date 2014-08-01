@@ -1,0 +1,28 @@
+elixirファイルの拡張しは'.ex', elixircでコンパイルする
+$ elixirc test.ex
+
+スクリプトモードのelixirファイルの拡張子は'.exs'
+実行するのに下のコマンドを使う
+$ elixir test.exs
+
+
+String モジュールで，文字列の長さをはかる
+iex(1)> String.length "こんにちは"
+5
+
+
+defpで定義したのはprivate関数で直接
+呼び出すと，エラーになる．
+defmodule Math do
+    def sum(a, b) do
+            do_sum(a, b)
+    end
+
+    defp do_sum(a, b) do
+            a + b
+    end
+end
+
+Math.sum(1, 2) #=> 3
+#Math.do_sum(1, 2) #=> ** (UndefinedFunctionError)
+
