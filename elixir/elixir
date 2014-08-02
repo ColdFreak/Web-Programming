@@ -4,3 +4,15 @@ iex(11)> for n <- [1,2,3,4], do: n*n
 [1, 4, 9, 16]
 iex(12)> for n <- 1..4, do: n*n
 [1, 4, 9, 16]
+
+
+Regular expressions
+iex(1)> regex = ~r/foo|bar/
+~r"foo|bar"
+iex(2)> "foo" =~ regex
+true
+iex(3)> "bar" =~ regex
+true
+iex(4)> "bat" =~ regex
+false
+iex(5)>
