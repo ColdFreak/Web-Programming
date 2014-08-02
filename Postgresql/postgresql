@@ -279,3 +279,19 @@ dvdrental=# select * from address_without_phone ;
 viewを削除するときに
 dvdrental=# drop view address_without_phone;
 DROP VIEW
+
+
+システムで一致する項目を全て検出するためには通常、
+companyテーブル全体を1行ごとにスキャンする必要があります。 
+companyに多くの行があり、その問い合わせで返されるのが数行
+（おそらく0行か1行）しかない場合、これは明らかに効率が悪い方法と言えます。 
+システムがインデックスをname列上に保持するよう設定してあれば、一致する行を検出するのにより効率の良い方法を使うことができます。 例えば、検索ツリーを数層分検索するだけで済む可能性もあります。
+下のコマンドはcompanyテーブルのname列上にインデックスを保持するように設定する．
+
+\diでインデックスをリストアップすることができる
+
+dvdrental=# create index index_name on company (name);
+
+下のコマンドはインデックスをdropする
+dvdrental=# drop index index_name;
+
