@@ -261,3 +261,21 @@ pg_size_pretty
 ----------------
 14 MB
 (1 row)
+
+
+viewの作成
+必要なビューを上手く設計して、プログラムコード負荷が少なくなるように する。
+create view の as 句以降には，select 文の様々なパターンが指定できる．
+下の文はaddressテーブルにphoneの入っていないレコードを出力
+dvdrental=# create view address_without_phone as
+dvdrental-# select * from address where phone = '';
+
+\dvで作成したviewの一覧を出力
+dvdrental=#\dv
+
+viewを使用するときに
+dvdrental=# select * from address_without_phone ;
+
+viewを削除するときに
+dvdrental=# drop view address_without_phone;
+DROP VIEW
