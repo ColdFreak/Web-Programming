@@ -295,3 +295,30 @@ dvdrental=# create index index_name on company (name);
 下のコマンドはインデックスをdropする
 dvdrental=# drop index index_name;
 
+
+トランザクションを始めるにはbeginを使う．
+updateをしている途中に何かエラーが発生すると，今のupdateをロールバックすることができる
+ロールバックしない場合はcommitすれば，トランザクションが完了する．
+dvdrental=# select * from payment where payment_id = 17504;
+payment_id | customer_id | staff_id | rental_id | amount |        payment_date
+------------+-------------+----------+-----------+--------+----------------------------
+17504 |         341 |        1 |      1778 |   3.99 | 2007-02-16 17:23:14.996577
+(1 row)
+
+dvdrental=# begin;
+BEGIN
+dvdrental=# update payment set amount = amount - 2 where payment_id = 17504;
+UPDATE 1
+dvdrental=# select * from payment where payment_id = 17504;
+payment_id | customer_id | staff_id | rental_id | amount |        payment_date
+------------+-------------+----------+-----------+--------+----------------------------
+17504 |         341 |        1 |      1778 |   1.99 | 2007-02-16 17:23:14.996577
+(1 row)
+
+dvdrental=# rollback;
+ROLLBACK
+dvdrental=# select * from payment where payment_id = 17504;
+payment_id | customer_id | staff_id | rental_id | amount |        payment_date
+------------+-------------+----------+-----------+--------+----------------------------
+17504 |         341 |        1 |      1778 |   3.99 | 2007-02-16 17:23:14.996577
+(1 row)
