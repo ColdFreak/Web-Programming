@@ -7,6 +7,10 @@ deb http://packages.erlang-solutions.com/ubuntu precise contrib
 # aptitude update
 # aptitude install elixir
 
+Mac OS Xに最新のElixirをインストール
+$ brew unlink elixir
+Unlinking /usr/local/Cellar/elixir/0.13.0... 9 symlinks removed
+$ brew install elixir --HEAD
 
 Comprehensionsはgenerators, filters, collectables
 三つの要素で構成されている
