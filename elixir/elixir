@@ -24,3 +24,17 @@ iex(1)> pid = spawn fn -> 1+2 end
 iex(2)> Process.alive?(pid)
 false
 iex(3)>
+
+defstructを使って，structを作ることができる
+
+iex(1)> defmodule User do
+...(1)>   defstruct name: "join", age: 27
+...(1)> end
+
+'instances'を生成するには%User{}を使う
+iex(2)> %User{}
+%User{age: 27, name: "join"}
+iex(3)> %User{name: "meg"}
+%User{age: 27, name: "meg"}
+iex(6)> is_map(%User{})
+true
