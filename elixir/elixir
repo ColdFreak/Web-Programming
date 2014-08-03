@@ -54,3 +54,10 @@ iex(11)> meg.name
 "meg"
 iex(12)> join.name
 "join"
+
+
+無名関数,('.'に注意)
+iex(1)> square = fn(x) -> x*x end
+#Function<6.106461118/1 in :erl_eval.expr/5>
+iex(2)> square.(5)
+25
