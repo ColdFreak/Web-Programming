@@ -1,3 +1,13 @@
+ubuntu(32bit)にElixirをインストール
+下のレポジトリを/etc/apt/sources.listファイルに追加
+deb http://packages.erlang-solutions.com/ubuntu trusty contrib
+deb http://packages.erlang-solutions.com/ubuntu saucy contrib
+deb http://packages.erlang-solutions.com/ubuntu precise contrib
+下のコマンドでerlang 17もインストールされる。
+# aptitude update
+# aptitude install elixir
+
+
 Comprehensionsはgenerators, filters, collectables
 三つの要素で構成されている
 iex(11)> for n <- [1,2,3,4], do: n*n
