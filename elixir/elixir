@@ -38,3 +38,19 @@ iex(3)> %User{name: "meg"}
 %User{age: 27, name: "meg"}
 iex(6)> is_map(%User{})
 true
+
+
+iex(7)> join = %User{}
+%User{age: 27, name: "join"}
+iex(8)> join.name
+"join"
+iex(9)> join.age
+27
+
+megはjoinというインスタンスをアップデートした
+iex(10)> meg = %User{join | name: "meg"}
+%User{age: 27, name: "meg"}
+iex(11)> meg.name
+"meg"
+iex(12)> join.name
+"join"
