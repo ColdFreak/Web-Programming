@@ -56,4 +56,11 @@ HTTP/1.1定义了OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE 和CONNECT方法�
 
 它通过只更新必要的HTTP标头(HTTP Header)提升了缓存特性。
 
+HTTP/1.1的工作方式和HTTP/1.0还是很像， 除了连接一直可以处于活动状态接受接下来的请求。它允许用户执行所谓的管道（pipeling), 也就是说发送大量的请求，HTTP/1.1处理这些请求的顺序和受到这些请求的顺序是相同的。
 
+## REST
+HTTP/1.1的设计受到了REST构架方式的影响。REST也可以写成REpresentational State Transfer, 它是一种构架，这种构架是为了分散连接的系统(loosely connected distributed system)。
+
+REST为了可以RESTful，定义了许多系统必须遵守的规定。不遵守这些约定的系统不可以被认为是RESTful的。
+
+REST就一个客户/服务器构架，它很好的区分了客户端和服务器端的职责所在。
