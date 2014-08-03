@@ -1,0 +1,59 @@
+## 介绍
+
+Cowboy是一个小型， 快速，模块化的HTTP服务器， 它是用Erlang写成的。
+
+Cowboy的目标在于提供一个完整的HTTP堆栈，包括它的派生物，SPDY，Websocket 和REST。
+
+Cowboy目前支持HTTP/1.0, HTTP/1.1, Websocket（所有已经被实现的草案和标准），基于Webmachine的REST。
+
+Cowboy是一个高质量的项目，它的基础代码很少，效率高（不论在延迟还是在内存用量方面）并且可以很容易嵌入到其他程序中。
+
+Cowboy是纯Erlang代码，包括上百个测试程序。Cowboy的代码完全符合Dialyzer标准。它还有丰富的文档包括函数手册和用户使用手册。
+
+## 前提知识
+
+阅读这篇指南不需要关于Erlang的知识。我们会把Erlang的概念介绍给读者， 在需要的时候我们会贴出参考资料的链接。
+
+如果拥有关于HTTP协议的知识那是最好了，但并不是必须的。它们会在这篇指南中被详细描述。
+
+## 支持的平台
+
+Cowboy支持Linux平台，在Linux平台上被测试过。有报导说它可以工作在其它平台上，但我们没有办法保证这个过程是安全，顺利的。
+
+如果你想要把Cowboy用于其它平台，建议你在必要的测试和安全评估之后再做决定。
+
+Cowboy适用于Erlang R15B+
+
+通过少量对源代码的修改，Cowboy也许可以用早期的Erlang版本完成编译，但不能保证它能和你期待的那样工作。
+
+##约定
+
+在HTTP协议中，HTTP方法名都是区分大小写的。所有的标准方法名都是大写。
+
+Http标头（Http header）是不区分大小写的。Cowboy把所有的请求表头的名称（request header names)都转换成小写字母 
+
+并且期待你的程序在响应（response）中表头名称也使用小写字母。
+
+上面的约定同样适用于那些不用区分大小写的HTTP标头的值（value）
+
+## 史前网页
+
+最初的HTTP只是用来提供HTML页面，并且只有一个GET方法将HTML文件取过来。这个最初版本的HTTP在文档中被叫做HTTP/0.9。
+
+HTTP/1.0定义了GET, HEAD, POST方法，并且可以通过POST请求来发送数据了。
+
+HTTP/1.0的工作防治很简单。一个TCP链接被建立到服务器。请求被发送，服务器将回应发送回来，然后关闭链接。
+
+我只是想说HTTP/1.0不是那么的高效率。打开一个TCP链接需要一些时间，一个含有大量资源的网页会因此而加载的更加缓慢。
+
+最近几年，在加载时间和减少请求延迟方面有了很多改进。
+
+## HTTP/1.1
+
+HTTP/1.1很快跟上并且添加了一个keep-alive机制， 可以只用一个连接来接受很多请求(request)了。就如同流（streaming capability)一般，允许一个终端在一个定义好的数据块(well defined chunks)中发送正文了(body)
+
+HTTP/1.1定义了OPTIONS, GET, HEAD, POST, PUT, DELETE, TRACE 和CONNECT方法， PATCH方法在最近才被加入进去。
+
+它通过只更新必要的HTTP标头(HTTP Header)提升了缓存特性。
+
+
