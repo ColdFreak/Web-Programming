@@ -1,6 +1,7 @@
 # モジュールKVのstart関数はloop()関数を実行する
 # プロセスを生成する
 # loop関数が空のmapというStateを持っている
+#
 defmodule KV do
 	def start do
 		{:ok, spawn_link(fn -> loop(%{}) end)}
@@ -8,6 +9,7 @@ defmodule KV do
 
 	defp loop(map) do
 		receive do
+			# callerは呼び出し元（ex. pidのこと）
 			{:get , key, caller} ->
 				send caller, Map.get(map, key)
 				loop(map)
