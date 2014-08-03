@@ -16,3 +16,11 @@ true
 iex(4)> "bat" =~ regex
 false
 iex(5)>
+
+spawnされたプロセスは関数を実行して，
+実行終了したら，プロセスもexit
+iex(1)> pid = spawn fn -> 1+2 end
+#PID<0.43.0>
+iex(2)> Process.alive?(pid)
+false
+iex(3)>
