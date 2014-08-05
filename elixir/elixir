@@ -101,3 +101,34 @@ iex(1)> square = fn(x) -> x*x end
 #Function<6.106461118/1 in :erl_eval.expr/5>
 iex(2)> square.(5)
 25
+
+標準入力から入力を取得
+iex(2)> IO.gets " yes or no?"
+yes or no?yes
+"yes\n"
+iex(3)> IO.gets "yes or no? "
+yes or no? yes
+"yes\n"
+
+
+標準エラーに出力
+iex(4)> IO.puts :stderr, "hello world"
+hello world
+:ok
+
+
+Fileモジュールを使ってファイルを開く
+デフォルトではバイナリモードで開かれるので、
+IO.binread/2 IO.binwrite/2関数を使う必要がある
+
+$ iex
+iex(1)> {:ok, file} = File.open "hello", [:write]
+{:ok, #PID<0.44.0>}
+iex(2)> IO.binwrite file, "world"
+:ok
+iex(3)> File.close file
+:ok
+iex(4)> File.read "hello"
+{:ok, "world"}
+iex(5)>
+
