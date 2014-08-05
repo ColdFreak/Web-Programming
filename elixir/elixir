@@ -132,3 +132,16 @@ iex(4)> File.read "hello"
 {:ok, "world"}
 iex(5)>
 
+
+'!'のついていないFile.readはきちんとしたエラーをだすようにしている
+パターンマッチングによくつかわれる
+iex(1)> File.read "hello"
+{:ok, "world"}
+iex(2)> File.read! "hello"
+"world"
+iex(3)> File.read "unknown"
+{:error, :enoent}
+iex(4)> File.read! "unknown"
+** (File.Error) could not read file unknown: no such file or directory
+    (elixir) lib/file.ex:355: File.read!/1
+
