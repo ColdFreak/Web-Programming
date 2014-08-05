@@ -3,6 +3,7 @@ Chefをインストールする
 # curl -L https://www.opscode.com/chef/install.sh | bash
 # chef-solo -v
 
+
 Chef Repositoryをダウンロードする
 # wget http://github.com/opscode/chef-repo/tarball/master
 # tar -zxf master
@@ -10,3 +11,22 @@ Chef Repositoryをダウンロードする
 # rm master
 
 
+.chef下のknife.rbファイルはknifeコマンドにcookbooksディレクトリは
+どこにあるのかを教える
+# mdir .chef
+# echo "cookbook_path [ '/home/vagrant/Web-Programming/Chef/chef-repo/cookbooks' ]" > .chef/knife.rb
+
+
+phpappクックブックをknifeコマンドで作成
+# knife cookbook create phpapp
+** Creating cookbook phpapp
+** Creating README for cookbook: phpapp
+** Creating CHANGELOG for cookbook: phpapp
+** Creating metadata for cookbook: phpapp
+
+これから Opscode Community クックブックを
+# knife cookbook site download apache2
+# tar zxf apache2*
+# rm apache2*.tar.gz
+
+apt, iptables, logrotate, pacman
