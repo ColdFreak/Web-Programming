@@ -145,3 +145,13 @@ iex(4)> File.read! "unknown"
 ** (File.Error) could not read file unknown: no such file or directory
     (elixir) lib/file.ex:355: File.read!/1
 
+
+下の二つは同じで，一つ目はfunction capture
+英語で説明すると
+& is a shorthand that lets you define an anonymous function,
+you use &1, &2 to reference the arguments that the function receives
+iex(2)> Enum.map [1,2,3], &(&1 * &1)
+[1, 4, 9]
+iex(3)> Enum.map [1,2,3], fn(x) -> x * x end
+[1, 4, 9]
+iex(4)>
