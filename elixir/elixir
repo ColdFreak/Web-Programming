@@ -155,3 +155,12 @@ iex(2)> Enum.map [1,2,3], &(&1 * &1)
 iex(3)> Enum.map [1,2,3], fn(x) -> x * x end
 [1, 4, 9]
 iex(4)>
+
+
+二次元リストを Enum.at と'|>' で６という数字を特定することができる
+iex(1)> multi_dim_array = [ [1,2,3], [4,5,6]]
+[[1, 2, 3], [4, 5, 6]]
+iex(2)> Enum.at(multi_dim_array, 1)
+[4, 5, 6]
+iex(3)> Enum.at(multi_dim_array, 1) |> Enum.at(2)
+6
