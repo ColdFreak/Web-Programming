@@ -178,3 +178,19 @@ iex(5)> rem(10,3)
 iex(6)> rem 10, 3
 1
 
+匿名関数を呼びさすときに'.'を入れるのを忘れずに
+iex(1)> add = fn a,b -> a+b end
+#Function<12.90072148/2 in :erl_eval.expr/5>
+iex(2)> is_function(add)
+true
+iex(3)> is_function(add,2)
+true
+iex(4)> is_function(add,1)
+false
+iex(5)> add.(1,2)
+3
+iex(7)> add_two = fn a -> add.(a,2) end
+#Function<6.90072148/1 in :erl_eval.expr/5>
+iex(8)> add_two.(2)
+4
+
