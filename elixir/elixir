@@ -164,3 +164,17 @@ iex(2)> Enum.at(multi_dim_array, 1)
 [4, 5, 6]
 iex(3)> Enum.at(multi_dim_array, 1) |> Enum.at(2)
 6
+
+
+除算と余りの二つの書き方
+iex(2)> div(10,2)
+5
+iex(3)> div 10,2
+5
+iex(4)> div(10,2)
+5
+iex(5)> rem(10,3)
+1
+iex(6)> rem 10, 3
+1
+
