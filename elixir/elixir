@@ -244,3 +244,12 @@ iex(2)> Enum.drop([1,2,3], 10)
 iex(3)> Enum.drop([1,2,3], -2)
 [1]
 
+
+reduce(collection, fun)
+reduce(collection, acc, fun)
+accがない場合は、リストの最初の値をaccとして設定される
+iex(1)> Enum.reduce([1,2,3,4], fn(x, acc) -> x*acc end)
+24
+iex(2)> Enum.reduce([1,2,3,4], 10, fn(x, acc) -> x*acc end)
+240
+
