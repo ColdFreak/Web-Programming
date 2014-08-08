@@ -1,0 +1,5 @@
+A run-list is:
+    An ordered list of roles and/or recipes that are run in an exact order.
+    If a recipe appears more than once in the run-list, the chef-client will never run that recipe twice
+
+
