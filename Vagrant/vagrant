@@ -1,0 +1,15 @@
+Provision
+
+Vagrantfileの中にprovisionを追加する
+Vagrant.configure("2") do |config|
+  config.vm.box = "hashicorp/precise32"
+    config.vm.provision :shell, path: "bootstrap.sh"
+end
+
+bootstrap.shを用意する
+#!/usr/bin/env bash
+yum -y install nmap
+
+そして
+vagrant reload --prevision <node name>
+
