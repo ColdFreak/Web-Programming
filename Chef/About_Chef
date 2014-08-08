@@ -1,0 +1,10 @@
+A run-list is:
+    An ordered list of roles and/or recipes that are run in an exact order.
+    If a recipe appears more than once in the run-list, the chef-client will never run that recipe twice
+
+
+Attribute types
+    default:
+        A default attribute is automatically reset at the start of every 
+        chef-client run and has the lowest attribute precedence. A cookbook
+        shoud be authored to use 'default' attributes as often as possible
