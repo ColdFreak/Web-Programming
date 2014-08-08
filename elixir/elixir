@@ -208,3 +208,11 @@ iex(1)> dict = %{a: 1, b: 2}
 iex(2)> Enum.map(dict, fn{k,v} -> {k, v*2} end)
 [a: 2, b: 4]
 
+
+渡されたリストのすべての要素に対して、関数で評価した後に
+返した結果はtrueであればtrueを返す
+iex(1)> Enum.all?([2,4,6], fn(x) -> rem(x, 2) == 0 end)
+true
+iex(2)> Enum.all?([2,3,6], fn(x) -> rem(x, 2) == 0 end)
+false
+
