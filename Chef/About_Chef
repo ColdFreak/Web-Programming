@@ -1,5 +1,7 @@
 chef-solo is an open source version of the chef-clien that allows using
-cookbooks with nodes without requiring access to a Chef server. chef-solo runs locally and requires that a cookbook be on the same physical disk as the node. chef-solo is a limited-functionality version of the chef-client.
+cookbooks with nodes without requiring access to a Chef server. chef-solo 
+runs locally and requires that a cookbook be on the same physical disk as 
+the node. chef-solo is a limited-functionality version of the chef-client.
 
 A run-list is:
     An ordered list of roles and/or recipes that are run in an exact order.
