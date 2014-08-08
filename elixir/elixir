@@ -224,3 +224,14 @@ false
 iex(2)> Enum.any?([2,3,6], fn(x) -> rem(x, 2) == 1 end)
 true
 
+
+リストの四つ目の要素を取り出せないのでnilを返す
+iex(1)> Enum.at([2,4,6], 3)
+nil
+iex(2)> Enum.at([2,4,6], 2)
+6
+５つ目の要素が取り出せないので、デフォルトの:noneを返す
+四つ目の要素はデフォルト値
+iex(3)> Enum.at([2,4,6], 4, :none)
+:none
+
