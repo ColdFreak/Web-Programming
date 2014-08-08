@@ -253,3 +253,13 @@ iex(1)> Enum.reduce([1,2,3,4], fn(x, acc) -> x*acc end)
 iex(2)> Enum.reduce([1,2,3,4], 10, fn(x, acc) -> x*acc end)
 240
 
+
+Elixir's Range is a stream
+Stream are composable, lazy enumerables.
+Any enumerable that generates items one by one
+during enumeration is called a stream.
+iex(1)> range = 1..5
+1..5
+iex(2)> Enum.map range, &(&1 * 2)
+[2, 4, 6, 8, 10]
+
