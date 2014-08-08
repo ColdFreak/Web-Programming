@@ -216,3 +216,11 @@ true
 iex(2)> Enum.all?([2,3,6], fn(x) -> rem(x, 2) == 0 end)
 false
 
+
+渡されたリストのすべての要素に対して、関数で評価した後に
+一つで評価がtrueであれば、返す結果がtrueである。
+iex(1)> Enum.any?([2,4,6], fn(x) -> rem(x, 2) == 1 end)
+false
+iex(2)> Enum.any?([2,3,6], fn(x) -> rem(x, 2) == 1 end)
+true
+
