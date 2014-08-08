@@ -15,4 +15,7 @@ Attribute types
         shoud be authored to use 'default' attributes as often as possible
 
 Roles:
-    A role is defined using JSON or the Ruby DSL, chef-solo will look for roles in /var/chef/roles, but this location can be modified by changing the setting for 'role_path' in solo.rb like 'role_path "/var/chef-solo/roles"'
+    A role is defined using JSON or the Ruby DSL, chef-solo will look for 
+    roles in /var/chef/roles, but this location can be modified by changing
+    the setting for 'role_path' in solo.rb like 
+    role_path "/var/chef-solo/roles"
