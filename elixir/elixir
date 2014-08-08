@@ -203,3 +203,8 @@ iex(2)> List.foldl([1,2,3,4], 0, fn (x, acc) -> x + acc end)
 iex(3)> List.foldl([1,2,3,4], 0, fn (x, acc) -> x - acc end)
 2
 
+iex(1)> dict = %{a: 1, b: 2}
+%{a: 1, b: 2}
+iex(2)> Enum.map(dict, fn{k,v} -> {k, v*2} end)
+[a: 2, b: 4]
+
