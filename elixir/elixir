@@ -194,3 +194,12 @@ iex(7)> add_two = fn a -> add.(a,2) end
 iex(8)> add_two.(2)
 4
 
+
+Folds(reduces) the given list to the left with a function,
+Requires an accumulator.
+foldl(list, acc, function)のような書き方、例
+iex(2)> List.foldl([1,2,3,4], 0, fn (x, acc) -> x + acc end)
+10
+iex(3)> List.foldl([1,2,3,4], 0, fn (x, acc) -> x - acc end)
+2
+
