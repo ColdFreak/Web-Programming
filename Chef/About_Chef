@@ -19,3 +19,11 @@ Roles:
     roles in /var/chef/roles, but this location can be modified by changing
     the setting for 'role_path' in solo.rb like 
     role_path "/var/chef-solo/roles"
+
+chef-repo
+    The chef-repo is the location in which following data objects are stored
+    1. Cookbooks
+    2. Roles
+    3. Data bags
+    4. Environments
+    5. Configuration files
