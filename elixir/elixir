@@ -295,3 +295,15 @@ iex(10)> dict = HashDict.put(dict, :hello, :world)
 #HashDict<[hello: :world]>
 iex(11)> dict[:hello]
 :world
+
+
+into(collection, list)
+into(collection, list, transform)
+Inserts the given enumerable into a collectable according to the 
+transformation function
+iex(12)> Enum.into([1,2,3], [0])
+[0, 1, 2, 3]
+iex(13)> Enum.into([a: 1, b: 2], %{})
+%{a: 1, b: 2}
+iex(14)> Enum.into([2,3], [3], fn x -> x * 3 end)
+[3, 6, 9]
