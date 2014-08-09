@@ -343,9 +343,18 @@ iex(7)> IO.read(pid, 5)
 
 String moudle
 Convert all characters on the given string to uppercase
+upcase(binary)
 iex(8)> String.upcase("abcd")
 "ABCD"
 iex(9)> String.upcase("ab 123 xpto")
 "AB 123 XPTO"
 iex(10)> String.upcase("こんにちは")
 "こんにちは"
+
+
+strip(string, char)
+Returns a string where leading/traillingchar have been removed
+iex(11)> String.strip("  abc  ")
+"abc"
+iex(12)> String.strip("a  abc  a", ?a)
+"  abc  "
