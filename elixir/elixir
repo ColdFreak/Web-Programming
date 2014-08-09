@@ -307,3 +307,16 @@ iex(13)> Enum.into([a: 1, b: 2], %{})
 %{a: 1, b: 2}
 iex(14)> Enum.into([2,3], [3], fn x -> x * 3 end)
 [3, 6, 9]
+
+
+Elixir provides macros as a mechanism for meta-programming
+Macros are chunks of code that executed and expanded at compilation time.
+in order to use a macro, we need to guarantee its module and implementation
+are available during compilation. The is done with the 'require' directive
+iex(1)> Integer.odd?(3)
+** (CompileError) iex:1: you must require Integer before invoking the macro Integer.odd?/1
+    (elixir) src/elixir_dispatch.erl:107: :elixir_dispatch.dispatch_require/6
+iex(1)> require Integer
+nil
+iex(2)> Integer.odd?(3)
+true
