@@ -286,3 +286,12 @@ iex(3)> Regex.match?(~r/\bmet/, "Wear your helmet when bicycling")
 false
 iex(4)> Regex.match?(~r/\bmet/, "Our metropolitan life")
 true
+
+
+To create a new dict, use the 'new' fucntions defined by each dict type
+iex(9)> dict = HashDict.new
+#HashDict<[]>
+iex(10)> dict = HashDict.put(dict, :hello, :world)
+#HashDict<[hello: :world]>
+iex(11)> dict[:hello]
+:world
