@@ -1,0 +1,2 @@
+マックのホストネームを変更する
+sudo scutil --set HostName Probox
