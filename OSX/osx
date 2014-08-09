@@ -1,2 +1,7 @@
 マックのホストネームを変更する
 sudo scutil --set HostName Probox
+
+brewをインストールした後にgccを入れる
+brew tap homebrew/versions
+brew search gcc49
+brew install gcc49
