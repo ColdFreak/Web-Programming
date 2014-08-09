@@ -320,3 +320,12 @@ iex(1)> require Integer
 nil
 iex(2)> Integer.odd?(3)
 true
+
+
+The majority of the functions in the File moudle expects paths as arguments.
+Most commonly, those paths will be binaries and they can be manipulated 
+with the Path module
+iex(3)> Path.join("foo", "bar")
+"foo/bar"
+iex(4)> Path.expand("~/hello")
+"/Users/wang/hello"
