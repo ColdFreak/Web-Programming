@@ -340,3 +340,12 @@ iex(6)> IO.read(pid, 4)
 iex(7)> IO.read(pid, 5)
 "efg"
 
+
+String moudle
+Convert all characters on the given string to uppercase
+iex(8)> String.upcase("abcd")
+"ABCD"
+iex(9)> String.upcase("ab 123 xpto")
+"AB 123 XPTO"
+iex(10)> String.upcase("こんにちは")
+"こんにちは"
