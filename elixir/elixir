@@ -329,3 +329,14 @@ iex(3)> Path.join("foo", "bar")
 "foo/bar"
 iex(4)> Path.expand("~/hello")
 "/Users/wang/hello"
+
+
+StringIO module provides an IO device that wraps a string
+二つ目のreadに注意,３文字しかないので、５文字は読み取れない
+iex(5)> {:ok, pid} = StringIO.open("abcdefg")
+{:ok, #PID<0.60.0>}
+iex(6)> IO.read(pid, 4)
+"abcd"
+iex(7)> IO.read(pid, 5)
+"efg"
+
