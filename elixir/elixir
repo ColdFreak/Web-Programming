@@ -273,3 +273,16 @@ iex(15)> Keyword.delete([a: 1, b: 2, c: 3], :a)
 [b: 2, c: 3]
 iex(16)> Keyword.delete([b: 2], :a)
 [b: 2]
+
+All of the Erlang built-ins reside in the ':erlang' module
+Since Erlang modules are represented by atoms, you may invoke Erlang
+functions in Elixir as follows:
+iex(1)> :lists.sort [3,4,1]
+[1, 3, 4]
+
+There are two anchors are '\b' and '\B', which stand for a "word boundary"
+and "non-word boundary" 
+iex(3)> Regex.match?(~r/\bmet/, "Wear your helmet when bicycling")
+false
+iex(4)> Regex.match?(~r/\bmet/, "Our metropolitan life")
+true
