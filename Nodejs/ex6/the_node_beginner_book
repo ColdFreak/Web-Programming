@@ -1,0 +1,138 @@
+server.jsという名前のファイルを作成します。
+ファイルの内容は以下の通りにします。
+
+var http = require("http");
+
+http.createServer(function(request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.write("Hello World");
+  response.end();
+}).listen(8888);
+
+このスクリプトをNode.jsから実行します
+
+node server.js
+
+ブラウザを開いて、http://localhost:8888/にアクセスしてみると
+"Hello World"と表示してくる。
+
+最初の行で、httpモジュールをrequire(要求)しています。これにより、
+Node.jsに同梱されているhttpモジュールへのアクセスが、変数httpを
+通して、可能になります。
+次に、httpモジュールが提供する関数の一つでであるcreateServerを呼び出して
+います。この関数はオブジェクトを返しますが、このオブジェクトがlistenという
+メソッドを持っています。
+
+もし8888番ポートで待ち受けするサーバーを開始したければ、こんなコードでもよかったはずです。
+
+var http = require("http");
+var server = http.createServer();
+server.listen(8888);
+
+createServer()の呼び出しの第一引数に関数定義があって、この関数の定義は
+createServer()を呼び出す際に渡す最初の（そして最後の）引数なのです。
+JavaScriptでは、関数をその他の値と同様にあちこちに渡すことができるのです。
+
+例えば
+
+function say(word) {
+  console.log(word);
+}
+
+function execute(someFunction, value) {
+  someFunction(value);
+}
+
+execute(say, "Hello");
+
+ここでは関数sayをexecute関数の第一引数として渡しています。sayの戻り値
+ではなく、say自体を渡しているのです。
+ここではsayが、関数executeの中にあるローカル変数someFunctionになっています。
+
+もちろんsayは引数を一つとるので、executeからsomeFunctionを呼び出す時には、
+さらに引数を渡すことができます。
+
+関数は関数を引数として渡す際にその場で定義してもよいのです。
+
+function execute(someFunction, value) {
+  someFunction(value);
+}
+
+execute(function(word) {console.log(word);}, "Hello");
+
+まさにexecuteが第一引数を期待している場所でexecuteに渡したい関数
+を定義しています。このような関数を匿名関数(anonymous function) と呼びます。
+
+今の知ったことを活用すれば、最低限のHTTPサーバーをこんな風に書くことができます。
+
+var http = require("http");
+
+http.createServer(function(request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.write("Hello World");
+  response.end();
+}).listen(8888);
+
+上のコードをリファクタリングすると、こうすることができます。
+
+var http = require("http");
+
+function onRequest(request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.write("Hello World");
+  response.end();
+}
+
+http.createServer(onRequest).listen(8888);
+
+
+コールバックによってonRequest()が呼ばれたときに、二つの引数
+requestとresponseが渡されます。　これらはオブジェクトです。
+このオブジェクトの持つメソッドを使うと、発生したHTTPリクエストや
+、そのリクエストへの応答の詳細を取り扱うことができます。
+response.writeHead()関数を使って、 HTTPステータスコード200と
+content-typeをHTTPレスポンスヘッダとして、 さらにresponse.write()関数を
+使って、 テキスト”Hello World”をHTTPレスポンスのボディーとして送ります。
+最後にresponse.end()を呼び出してレスポンスを完了しています。
+
+
+server.jsスクリプトをモジュールとして作り直してみます。
+コードをモジュール化するためにはそれを必要とするモジュールのスクリプト
+を提供するように、パーツが持っている機能をexportする必要があります。
+
+今のところ、exportしたいHTTPサーバーの機能は単純なものです。我々のサーバー
+モジュールは単にサーバーを起動するだけのスクリプトです。
+
+これを実現するには、サーバのコードをstartという関数の中に放り込み、
+この関数をexportします。
+
+var http = require("http");
+
+function start() {
+  function onRequest(request, response) {
+    console.log("Request received.");
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write("Hello World");
+    response.end();
+  }
+
+  http.createServer(onRequest).listen(8888);
+  console.log("Server has started.");
+}
+
+exports.start = start;
+
+このようにすれば、サーバのコードがserver.jsファイルの中にある状態で、
+メインファイルindex.jsを作り、そこでHTTPサーバを起動することができます。
+
+index.jsファイル
+
+var server = require("./server.js");
+server.start();
+
+メインスクリプトから起動してみます。
+node index.js
+
+
+
+
