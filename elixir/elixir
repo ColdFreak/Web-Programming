@@ -446,3 +446,12 @@ iex(12)> stream = Stream.cycle([1,2,3])
 iex(13)> Enum.take(stream, 10)
 [1, 2, 3, 1, 2, 3, 1, 2, 3, 1]
 
+
+Elixir provides agents which are simple abstractions
+around state:
+iex(14)> {:ok, pid} = Agent.start_link(fn -> %{} end)
+{:ok, #PID<0.73.0>}
+iex(15)> Agent.update(pid, fn map -> Map.put(map, :hello, :world) end)
+:ok
+iex(17)> Agent.get(pid, fn map -> Map.get(map, :hello) end)
+:world
