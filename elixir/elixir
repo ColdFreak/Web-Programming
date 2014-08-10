@@ -455,3 +455,12 @@ iex(15)> Agent.update(pid, fn map -> Map.put(map, :hello, :world) end)
 :ok
 iex(17)> Agent.get(pid, fn map -> Map.get(map, :hello) end)
 :world
+
+
+Char lists and binary
+iex(18)> is_binary "hello"
+true
+iex(19)> is_list "hello"
+false
+iex(20)> is_list 'hello'
+true
