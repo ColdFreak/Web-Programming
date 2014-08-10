@@ -157,7 +157,8 @@ iex(3)> Enum.map [1,2,3], fn(x) -> x * x end
 iex(4)>
 
 
-二次元リストを Enum.at と'|>' で６という数字を特定することができる
+二次元リストを Enum.at と'|>' で
+６という数字を特定することができる
 iex(1)> multi_dim_array = [ [1,2,3], [4,5,6]]
 [[1, 2, 3], [4, 5, 6]]
 iex(2)> Enum.at(multi_dim_array, 1)
@@ -195,7 +196,8 @@ iex(8)> add_two.(2)
 4
 
 
-Folds(reduces) the given list to the left with a function,
+Folds(reduces) the given list 
+to the left with a function,
 Requires an accumulator.
 foldl(list, acc, function)のような書き方、例
 iex(2)> List.foldl([1,2,3,4], 0, fn (x, acc) -> x + acc end)
@@ -209,7 +211,8 @@ iex(2)> Enum.map(dict, fn{k,v} -> {k, v*2} end)
 [a: 2, b: 4]
 
 
-渡されたリストのすべての要素に対して、関数で評価した後に
+渡されたリストのすべての要素に対して、
+関数で評価した後に
 返した結果はtrueであればtrueを返す
 iex(1)> Enum.all?([2,4,6], fn(x) -> rem(x, 2) == 0 end)
 true
@@ -217,8 +220,10 @@ iex(2)> Enum.all?([2,3,6], fn(x) -> rem(x, 2) == 0 end)
 false
 
 
-渡されたリストのすべての要素に対して、関数で評価した後に
-一つで評価がtrueであれば、返す結果がtrueである。
+渡されたリストのすべての要素に対して、
+関数で評価した後に
+一つで評価がtrueであれば、
+返す結果がtrueである。
 iex(1)> Enum.any?([2,4,6], fn(x) -> rem(x, 2) == 1 end)
 false
 iex(2)> Enum.any?([2,3,6], fn(x) -> rem(x, 2) == 1 end)
@@ -230,13 +235,15 @@ iex(1)> Enum.at([2,4,6], 3)
 nil
 iex(2)> Enum.at([2,4,6], 2)
 6
-５つ目の要素が取り出せないので、デフォルトの:noneを返す
+５つ目の要素が取り出せないので、
+デフォルトの:noneを返す
 四つ目の要素はデフォルト値
 iex(3)> Enum.at([2,4,6], 4, :none)
 :none
 
 drop(collection, count)
-Enum.drop()のcountは負の数であれば、末尾からcount個の要素を削除
+Enum.drop()のcountは負の数であれば、
+末尾からcount個の要素を削除
 iex(1)> Enum.drop([1,2,3], 2)
 [3]
 iex(2)> Enum.drop([1,2,3], 10)
@@ -265,8 +272,10 @@ iex(2)> Enum.map range, &(&1 * 2)
 
 
 delete(keywords, key)
-Deletes the entries in the keyword list for a specific key
-If the key does not exist, returns the keyword list unchanged
+Deletes the entries in the 
+keyword list for a specific key
+If the key does not exist, 
+returns the keyword list unchanged
 iex(14)> Keyword.delete([a: 1, b: 2], :a)
 [b: 2]
 iex(15)> Keyword.delete([a: 1, b: 2, c: 3], :a)
@@ -274,13 +283,17 @@ iex(15)> Keyword.delete([a: 1, b: 2, c: 3], :a)
 iex(16)> Keyword.delete([b: 2], :a)
 [b: 2]
 
-All of the Erlang built-ins reside in the ':erlang' module
-Since Erlang modules are represented by atoms, you may invoke Erlang
+All of the Erlang built-ins reside 
+in the ':erlang' module
+Since Erlang modules are 
+represented by atoms, you may invoke Erlang
 functions in Elixir as follows:
 iex(1)> :lists.sort [3,4,1]
 [1, 3, 4]
 
-There are two anchors are '\b' and '\B', which stand for a "word boundary"
+There are two anchors 
+are '\b' and '\B', which 
+stand for a "word boundary"
 and "non-word boundary" 
 iex(3)> Regex.match?(~r/\bmet/, "Wear your helmet when bicycling")
 false
@@ -288,7 +301,8 @@ iex(4)> Regex.match?(~r/\bmet/, "Our metropolitan life")
 true
 
 
-To create a new dict, use the 'new' fucntions defined by each dict type
+To create a new dict, use the 'new' 
+fucntions defined by each dict type
 iex(9)> dict = HashDict.new
 #HashDict<[]>
 iex(10)> dict = HashDict.put(dict, :hello, :world)
@@ -299,7 +313,8 @@ iex(11)> dict[:hello]
 
 into(collection, list)
 into(collection, list, transform)
-Inserts the given enumerable into a collectable according to the 
+Inserts the given enumerable into a 
+collectable according to the 
 transformation function
 iex(12)> Enum.into([1,2,3], [0])
 [0, 1, 2, 3]
@@ -309,10 +324,14 @@ iex(14)> Enum.into([2,3], [3], fn x -> x * 3 end)
 [3, 6, 9]
 
 
-Elixir provides macros as a mechanism for meta-programming
-Macros are chunks of code that executed and expanded at compilation time.
-in order to use a macro, we need to guarantee its module and implementation
-are available during compilation. The is done with the 'require' directive
+Elixir provides macros as a 
+mechanism for meta-programming
+Macros are chunks of code that 
+executed and expanded at compilation time.
+in order to use a macro, we 
+need to guarantee its module and implementation
+are available during compilation. 
+The is done with the 'require' directive
 iex(1)> Integer.odd?(3)
 ** (CompileError) iex:1: you must require Integer before invoking the macro Integer.odd?/1
     (elixir) src/elixir_dispatch.erl:107: :elixir_dispatch.dispatch_require/6
@@ -322,8 +341,11 @@ iex(2)> Integer.odd?(3)
 true
 
 
-The majority of the functions in the File moudle expects paths as arguments.
-Most commonly, those paths will be binaries and they can be manipulated 
+The majority of the functions 
+in the File moudle expects 
+paths as arguments.
+Most commonly, those paths will 
+be binaries and they can be manipulated 
 with the Path module
 iex(3)> Path.join("foo", "bar")
 "foo/bar"
@@ -331,8 +353,11 @@ iex(4)> Path.expand("~/hello")
 "/Users/wang/hello"
 
 
-StringIO module provides an IO device that wraps a string
-二つ目のreadに注意,３文字しかないので、５文字は読み取れない
+StringIO module provides an 
+IO device that wraps a string
+二つ目のreadに注意,
+３文字しかないので、
+５文字は読み取れない
 iex(5)> {:ok, pid} = StringIO.open("abcdefg")
 {:ok, #PID<0.60.0>}
 iex(6)> IO.read(pid, 4)
@@ -342,7 +367,8 @@ iex(7)> IO.read(pid, 5)
 
 
 String moudle
-Convert all characters on the given string to uppercase
+Convert all characters on the 
+given string to uppercase
 upcase(binary)
 iex(8)> String.upcase("abcd")
 "ABCD"
@@ -353,7 +379,8 @@ iex(10)> String.upcase("こんにちは")
 
 
 strip(string, char)
-Returns a string where leading/traillingchar have been removed
+Returns a string where 
+leading/traillingchar have been removed
 iex(11)> String.strip("  abc  ")
 "abc"
 iex(12)> String.strip("a  abc  a", ?a)
@@ -373,14 +400,17 @@ iex(3)> Enum.map [2,4,6], square
 so '?0' is 48
 
 
-All the functions in the 'Enum' module are eager.
-Many functions expect an enumerable and return a list back
+All the functions in the 'Enum' 
+module are eager.  Many functions 
+expect an enumerable and return a list back
 iex(6)> odd? = &(rem(&1, 2) != 0)
 #Function<6.90072148/1 in :erl_eval.expr/5>
 iex(7)> Enum.filter(1..3, odd?)
 [1, 3]
-This means that when performing multiple operations with 'Enum'
-each operation is going to generate an intermediate list until
+This means that when performing 
+multiple operations with 'Enum'
+each operation is going to 
+generate an intermediate list until
 we reach the result
 iex(8)> 1..100_000 |> Enum.map(&(&1*3)) |> Enum.filter(odd?) |> Enum.sum
 7500000000
@@ -392,8 +422,11 @@ iex(9)> 1..100_000 |> Stream.map(&(&1*3)) |> Stream.filter(odd?) |> Enum.sum
 
 
 Streams are lazy, composable enumerables
-They are lazy because, as shown in the example, it returns a data type, 
-an actual stream, that represents the map computation over the range 1..100_000
+They are lazy because, as shown 
+in the example, it returns 
+a data type, an actual stream, 
+that represents the map computation 
+over the range 1..100_000
 iex(10)> 1..100_000 |> Enum.map(&(&1*3))
 [3, 6, 9, 12, 15, 18, 21, 24, 27, 30, 33, 36, 39, 42, 45, 48, 51, 54, 57, 60,
  63, 66, 69, 72, 75, 78, 81, 84, 87, 90, 93, 96, 99, 102, 105, 108, 111, 114,
