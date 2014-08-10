@@ -211,3 +211,42 @@ exports.start = start;
 bash$ node index.js
 Request for /foo received.
 About to route a request for /foo
+
+
+今、ルーティングはルータの内部で"終了"しています。これはアプリケーション
+がもっと複雑になったときにスケールできなくなるからで、ルータはリクエストに
+大して、実際に何かをする場所ではない訳です。
+
+リクエストが引き渡されるリクエストハンドラを呼び出します。
+リクエストハンドラがないと今までルータを使ってやろうとしていたことの今が
+なくなってしまいます。
+
+requestHandlers.jsモジュールを作って、プレースホルダとなる関数をすべて
+リクエストハンドラに追加し、モジュールのメソッドとしてエクスポートします。
+
+function start() {
+  console.log("Request handler 'start' was called.");
+}
+
+function upload() {
+  console.log("Request handler 'upload' was called.");
+}
+
+exports.start = start;
+exports.upload = upload;
+
+リクエストハンドラのリストをオブジェクトとして渡し、粗結合にする為に
+オブジェクトをroute()に入れてしまいます。
+
+まずは、オブジェクトをメインファイルであるindex.jsに配置します。
+
+var server = require("./server");
+var router = require("./router");
+var requestHandlers = require("./requestHandlers");
+
+var handle = {}
+handle["/"] = requestHandlers.start;
+handle["/start"] = requestHandlers.start;
+handle["/upload"] = requestHandlers.upload;
+
+server.start(router.route, handle);
