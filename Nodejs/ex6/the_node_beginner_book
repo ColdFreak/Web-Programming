@@ -133,6 +133,81 @@ server.start();
 メインスクリプトから起動してみます。
 node index.js
 
+リクエスト"ルーティング"するために必要なもの
+HTTPリクエストの中をみて、リクエストURLやGET,POSTパラメータを抽出し
+なければいけません。必要な情報はすべて、コールバック関数onRequest()
+の第一引数として渡されるrequestオブジェクトから得ることができます。
+urlとquerystringが必要となります。urlモジュールが提供するのは,URLの各部分
+（例えば、リクエストパスやクエリ文字列）を抽出するメソッドです。抽出
+した後、querystringモジュールでリクエストパラメータのクエリ文字列をパース
+することができます。
 
+ではonRequest()関数に、ブラウザがリクエストしてきたURLパスを見つけるためのロジックを追加してみます。
 
+var http = require("http");
+var url = require("url");
 
+function start() {
+  function onRequest(request, response) {
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " received.");
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write("Hello World");
+    response.end();
+  }
+
+  http.createServer(onRequest).listen(8888);
+  console.log("Server has started.");
+}
+
+exports.start = start;
+
+これで、我々のアプリケーションはリクエストされたURLパスによって、
+そのリクエストを区別することができます。これでリクエストをルータを
+使ってURLパスに基づくリクエストハンドラにマッピングすることができます。
+
+実際のルータのコードを書いてみます。router.jsというファイルを作成し、
+中身を以下の通り書いてみます。
+
+function route(pathname) {
+  console.log("About to route a request for " + pathname);
+}
+
+exports.route = route;
+
+まず、index.jsを拡張してみます。ルーティングのための関数をサーバに組み込みます。
+router.jsのroute関数をstart()関数に渡す
+var server = require("./server");
+var router = require("./router");
+
+server.start(router.route);
+
+そして、server.jsファイルのstart()関数を拡張する。ルーティングのための関数
+を引数で指定して使えるようにします。
+var http = require("http");
+var url = require("url");
+
+function start(route) {
+  function onRequest(request, response) {
+    var pathname = url.parse(request.url).pathname;
+    console.log("Request for " + pathname + " received.");
+
+    route(pathname);
+
+    response.writeHead(200, {"Content-Type": "text/plain"});
+    response.write("Hello World");
+    response.end();
+  }
+
+  http.createServer(onRequest).listen(8888);
+  console.log("Server has started.");
+}
+
+exports.start = start;
+
+ここで、(node index.js)アプリケーションを起動してURLへリクエストを
+送ったら、HTTPサーバがルータを使用している様子、それからリクエストされたパス
+名が渡されている様子がアプリケーションの出力内容からわかるはずです。
+bash$ node index.js
+Request for /foo received.
+About to route a request for /foo
