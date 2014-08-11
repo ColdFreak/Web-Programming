@@ -482,3 +482,21 @@ iex> Agent.get(agent, fn list -> list end)
 ["eggs"]
 iex> Agent.stop(agent)
 :ok
+
+
+Matching works because structs stores a 
+field named __struct__ inside the map
+iex(6)> defmodule User do
+...(6)>   defstruct name: "join", age: 27
+...(6)> end
+{:module, User,
+ <<70, 79, 82, 49, 0, 0, 5, 8, 66, 69, 65, 77, 69, 120, 68, 99, 0, 0, 0, 99, 131, 104, 2, 100, 0, 14, 101, 108, 105, 120, 105, 114, 95, 100, 111, 99, 115, 95, 118, 49, 108, 0, 0, 0, 2, 104, 2, ...>>,
+ [name: "join", age: 27]}
+iex(8)> join = %User{}
+%User{age: 27, name: "join"}
+iex(9)> %User{name: name} = join
+%User{age: 27, name: "join"}
+iex(10)> name
+"join"
+iex(11)> join.__struct__
+User
