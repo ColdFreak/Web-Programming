@@ -514,3 +514,16 @@ iex(13)> ~c(this is a string with "quotes")
 'this is a string with "quotes"'
 iex(14)> ~w(foo bar bat)
 ["foo", "bar", "bat"]
+
+rm!(Path.t) :: :ok | no_return
+Same as 'rm/1', but raises an exception
+in case of failure. Otherwise:ok!
+iex(1)> File.rm('test')
+:ok
+iex(2)> File.rm('test')
+{:error, :enoent}
+iex(3)> File.rm!('test2')
+:ok
+iex(4)> File.rm!('test2')
+** (File.Error) could not remove file test2: no such file or directory
+    (elixir) lib/file.ex:697: File.rm!/1
