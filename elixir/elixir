@@ -500,3 +500,17 @@ iex(10)> name
 "join"
 iex(11)> join.__struct__
 User
+
+
+Besides regular expressions, 
+'~s' sigil is used to generate string, 
+similar to double quotes.
+'~c' is used to generate char lists
+'~w' sigil is used to generate a list of
+words separated by white space
+iex(12)> ~s(this is a string with "quotes")
+"this is a string with \"quotes\""
+iex(13)> ~c(this is a string with "quotes")
+'this is a string with "quotes"'
+iex(14)> ~w(foo bar bat)
+["foo", "bar", "bat"]
