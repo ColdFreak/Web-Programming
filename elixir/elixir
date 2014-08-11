@@ -534,3 +534,29 @@ iex(2)> File.regular?('TestDir')
 false
 iex(4)> File.regular?('test')
 true
+
+
+with_index(Enumerable.t):: Enumerable.t
+Creates a stream where each item in the enumerable
+will be wrapped in a tuple alongside its index
+iex(6)> stream = Stream.with_index([3,4,5])
+#Stream<[enum: [3, 4, 5],
+ funs: [#Function<45.75994740/1 in Stream.with_index/1>]]>
+iex(7)> Enum.to_list(stream)
+[{3, 0}, {4, 1}, {5, 2}]
+
+
+
+String.split(string, pattern, options \\ [])
+iex(8)> String.split("a,b,c", ",")
+["a", "b", "c"]
+iex(9)> String.split("a,b,c", ",", parts:2)
+** (SyntaxError) iex:9: keyword argument must be followed by space after: parts:
+
+iex(9)> String.split("a,b,c", ",", parts: 2)
+["a", "b,c"]
+iex(10)> String.split(" a b c ", " ", trim:true)
+** (SyntaxError) iex:10: keyword argument must be followed by space after: trim:
+
+iex(10)> String.split(" a b c ", " ", trim: true)
+["a", "b", "c"]
