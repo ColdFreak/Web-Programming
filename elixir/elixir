@@ -527,3 +527,10 @@ iex(3)> File.rm!('test2')
 iex(4)> File.rm!('test2')
 ** (File.Error) could not remove file test2: no such file or directory
     (elixir) lib/file.ex:697: File.rm!/1
+
+
+Returns true if the path is a regular file
+iex(2)> File.regular?('TestDir')
+false
+iex(4)> File.regular?('test')
+true
