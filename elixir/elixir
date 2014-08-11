@@ -464,3 +464,21 @@ iex(19)> is_list "hello"
 false
 iex(20)> is_list 'hello'
 true
+
+
+We started an agent with an initial
+state of an empty list. Next, we issue
+a commonad to update the state, adding 
+our new item to the head of the list.
+Finally, we retrieved the whole list.
+Once we are done with the agent, we
+can call Agent.stop/1 to terminate the
+agent process.
+iex> {:ok, agent} = Agent.start_link fn -> [] end
+{:ok, #PID<0.57.0>}
+iex> Agent.update(agent, fn list -> ["eggs"|list] end)
+:ok
+iex> Agent.get(agent, fn list -> list end)
+["eggs"]
+iex> Agent.stop(agent)
+:ok
