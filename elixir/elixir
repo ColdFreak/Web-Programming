@@ -560,3 +560,58 @@ iex(10)> String.split(" a b c ", " ", trim:true)
 
 iex(10)> String.split(" a b c ", " ", trim: true)
 ["a", "b", "c"]
+
+
+匿名関数
+iex(3)> print_name = fn
+...(3)>   {:person, first_name, last_name} -> first_name <> " " <> last_name
+...(3)> end
+#Function<6.90072148/1 in :erl_eval.expr/5>
+iex(4)> print_name.({:person, "Josh", "Adams"})
+"Josh Adams"
+
+呼び出すときに、パターンマッチングも
+考える必要がある
+iex(1)> calculate_bill = fn
+...(1)>   [{:item, price}, {:item, price2}] -> price+price2
+...(1)>   {:item, price} -> price
+...(1)> end
+#Function<6.90072148/1 in :erl_eval.expr/5>
+iex(2)> calculate_bill.([{:item, 20}, {:item, 10}])
+30
+iex(3)> calculate_bill.({:item, 35})
+35
+
+
+匿名関数を定義したら、すぐ呼び出す。
+Javascriptによくある
+iex(4)> (fn -> "foo" end).()
+"foo"
+
+Functions are first-class in Elixir, you 
+can pass them as arguments or return from 
+other functions
+iex(5)> add = fn
+...(5)>   num -> (fn num2 -> num + num2 end)
+...(5)> end
+#Function<6.90072148/1 in :erl_eval.expr/5>
+iex(6)> add3 = add.(3)
+#Function<6.90072148/1 in :erl_eval.expr/5>
+iex(7)> add3.(5)
+8
+
+
+一つの匿名関数を引数としてもう一つの匿名関数(greet_person)
+に渡す
+iex(1)> greet_person = fn
+...(1)>   greeter, {:person, first_name, last_name} -> greeter.(first_name <> " " <> last_name)
+...(1)> end
+#Function<12.90072148/2 in :erl_eval.expr/5>
+iex(2)> polite_greeter = fn
+...(2)>   name -> "Hello, #{name}, nice to meet you!"
+...(2)> end
+#Function<6.90072148/1 in :erl_eval.expr/5>
+iex(3)> person = {:person, "Josh", "Adams"}
+{:person, "Josh", "Adams"}
+iex(4)> greet_person.(polite_greeter, person)
+"Hello, Josh Adams, nice to meet you!"
