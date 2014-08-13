@@ -615,3 +615,44 @@ iex(3)> person = {:person, "Josh", "Adams"}
 {:person, "Josh", "Adams"}
 iex(4)> greet_person.(polite_greeter, person)
 "Hello, Josh Adams, nice to meet you!"
+
+
+The tuple contains an atom, :module
+The constant representing the module: Foo
+a binary containing the bytecode
+defining the module. This is extremely
+interesting, as it can be used to(for instance)
+shove this module over into another node and load it
+over the network without that node ever
+having had hte source code available to it.
+A tuple describing the last function defined
+in that module
+iex(2)> output = defmodule Foo do
+...(2)>   def bar do
+...(2)>     "whee"
+...(2)>   end
+...(2)> end
+{:module, Foo,
+ <<70, 79, 82, 49, 0, 0, 4, 112, 66, 69, 65, 77, 69, 120, 68, 99, 0, 0, 0, 92, 131, 104, 2, 100, 0, 14, 101, 108, 105, 120, 105, 114, 95, 100, 111, 99, 115, 95, 118, 49, 108, 0, 0, 0, 2, 104, 2, ...>>,
+  {:bar, 0}}
+
+
+$ mix docs コマンドを使って、
+モジュールのドキュメントを
+生成したい場合はmix.exsファイル
+に:ex_docと:markdown二つのエントリ
+を追加する必要がある。
+$ mix deps.get
+コマンドでこれらの
+アプリをインストールして、
+$mix docs 
+コマンドでindex.html
+を生成する。ファイルの場所は
+docs/index.htmlにある。
+defp deps do
+    [
+        { :ex_doc, github: "elixir-lang/ex_doc"},
+        { :markdown, github: "devinus/markdown"}
+    ]
+end
+
