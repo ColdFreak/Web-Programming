@@ -64,3 +64,8 @@ HTTP/1.1的设计受到了REST构架方式的影响。REST也可以写成REprese
 REST为了可以RESTful，定义了许多系统必须遵守的规定。不遵守这些约定的系统不可以被认为是RESTful的。
 
 REST就一个客户/服务器构架，它很好的区分了客户端和服务器端的职责所在。
+
+
+The lift of a request
+Request/response
+你已经知道HTTP 客户端连接到服务器,发送一个请求，然后服务器将应答发送回来	
