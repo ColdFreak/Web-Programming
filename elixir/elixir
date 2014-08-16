@@ -671,3 +671,18 @@ iex(3)> list = for x <- [1,2,3], y <- [:a, :b, :c], x > 2, do: {x,y}
 iex(4)> for x <- [1,2,3], y <- [4,5,6], do: x*y
 [4, 5, 6, 8, 10, 12, 12, 15, 18]
 iex(5)>
+
+
+Without hard-coding all 26 cases,
+what is a good way to construct a
+map that looks like:
+${
+    "A" => 1,
+    "B" => 2,
+    ..
+}
+答えは
+for n <- 1..26, into: %{} do
+    {<<?A+n-1>>, n}
+end
+
