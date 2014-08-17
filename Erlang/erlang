@@ -1,3 +1,30 @@
 1> string:tokens("10 4 3 + 2 * -", " ").
 ["10","4","3","+","2","*","-"]
 
+下の命令はsrc/ディレクトリ下の'.erl'
+ファイルとtest/ディレクトリ下の'.erl'
+ファイルをコンパイルして、出力する
+'.beam'ファイルをebinディレクトリに
+置く
+$ erlc -o ebin/ src/*.erl test/*.erl
+
+
+beamファイルがどこにあるのかを
+-paで指定する,テストするときに
+[verbose]で指定することができる
+$ erl -pa ebin/
+1> eunit:test(mylist, [verbose]).
+
+======================== EUnit ========================
+module 'mylist'
+  module 'mylist_tests'
+    mylist_tests: sum_test...ok
+    mylist_tests: product_test...ok
+    mylist_tests: odds_test...ok
+    [done in 0.009 s]
+  [done in 0.009 s]
+=======================================================
+  All 3 tests passed.
+ok
+
+
