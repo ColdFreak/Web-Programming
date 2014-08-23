@@ -1,0 +1,11 @@
+git clone https://github.com/phoenixframework/phoenix.git && cd phoenix && mix do deps.get, compile
+
+phoenixのディレクトリにアプリケーションを作成
+mix phoenix.new ~/Projects/Blogger
+
+アプリケーションのディレクトリに移動して、
+下のコマンドで依存するモジュールを
+インストールして、コンパイルする
+mix do deps.get, compile
+mix phoenix.star
+これでlocalhost:4000でアクセスできるはず
