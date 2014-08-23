@@ -755,3 +755,15 @@ iex(2)> GenServer.cast(pid, {:increment_number, 10})
 *DBG* <0.95.0> got cast {increment_number,10}
 *DBG* <0.95.0> new state 110
 :ok
+
+
+Gets the value for a specific key
+if key does not exist, return
+the default value(nil, if no
+default value)
+iex(6)> Keyword.get([a: 1], :a)
+1
+iex(7)> Keyword.get([a: 1], :b)
+nil
+iex(10)> Keyword.get([a: 1], :b, 3)
+3
