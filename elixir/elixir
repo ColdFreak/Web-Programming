@@ -686,3 +686,62 @@ for n <- 1..26, into: %{} do
     {<<?A+n-1>>, n}
 end
 
+
+Customize iex by setting options
+iex> h IEx.configure
+...
+I then created a file called
+'.iex.exs' in my home directory,
+containing the following.
+IEx.configure colors: [ eval_result: [ :cyan, :bright ] ]
+
+
+if you want to force Elixir
+to use the existing value
+of the variable in the pattern?
+Prefix it with an '^'(a caret)
+iex(13)> a = 1
+1
+iex(14)> [^a, 2, 3] = [ 1,2,3]
+[1, 2, 3]
+iex(15)> a = 2
+2
+iex(16)> [^a, 2 ] = [1,2]
+** (MatchError) no match of right hand side value: [1, 2]
+
+we never captitalize a string, 
+Instead, we return a capitalized copy
+of a string
+iex(20)> name = "elixir"
+"elixir"
+iex(21)> cap_name = String.capitalize name
+"Elixir"
+iex(22)> name
+"elixir"
+
+
+Regex.runとRegex.scan
+iex> Regex.run ~r{[aeiou]}, "caterpillar"
+["a"]
+iex> Regex.scan ~r{[aeiou]}, "caterpillar"
+[["a"], ["e"], ["i"], ["a"]]
+iex> Regex.split ~r{[aeiou]}, "caterpillar"
+["c", "t", "rp", "ll", "r"]
+iex> Regex.replace ~r{[aeiou]}, "caterpillar", "*"
+"c*t*rp*ll*r"
+
+
+It is common for functions to return a tuple
+where the first element is the atom ':ok'
+if there were no errors
+iex(28)> {status, file} = File.open("concat.ex")
+{:ok, #PID<0.93.0>}
+iex(29)> {:error, :enoent} = File.open("non_exist_file")
+{:error, :enoent}
+
+
+Membership
+iex(30)> 1 in [ 1,2,3,4]
+true
+iex(31)> "wombat" in [ 1,2,3,4]
+false
