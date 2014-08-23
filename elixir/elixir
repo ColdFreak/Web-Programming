@@ -767,3 +767,16 @@ iex(7)> Keyword.get([a: 1], :b)
 nil
 iex(10)> Keyword.get([a: 1], :b, 3)
 3
+
+" を全部 \"  に変換する
+iex(1)> Regex.replace(~r/\"/, "\"wow\", he said", "\"")
+
+runは文字列と一致したものは見つかると
+実行は止まる
+scanはすべてのパターンを探す
+iex(11)> str = "Walkulrus, Walkulrus"
+"Walkulrus, Walkulrus"
+iex(12)> Regex.run(~r{l[kr]u}, str)
+["lku"]
+iex(13)> Regex.scan(~r{l[kr]u}, str)
+[["lku"], ["lru"], ["lku"], ["lru"]]
