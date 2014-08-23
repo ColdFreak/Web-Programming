@@ -745,3 +745,13 @@ iex(30)> 1 in [ 1,2,3,4]
 true
 iex(31)> "wombat" in [ 1,2,3,4]
 false
+
+
+start_link関数にdebugに関する引数を渡す
+ことができる
+iex(1)> {:ok<Plug>PeepOpenid} = GenServer.start_link(Sequence.Server, 100, [debug: [:trace]])
+{:ok, #PID<0.95.0>}
+iex(2)> GenServer.cast(pid, {:increment_number, 10})
+*DBG* <0.95.0> got cast {increment_number,10}
+*DBG* <0.95.0> new state 110
+:ok
