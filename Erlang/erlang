@@ -66,3 +66,29 @@ Dictに探すと指定する必要
 {ok,1}
 4> dict:find(string, Dict).
 {ok,3}
+
+
+run(Subject, RE) -> {match, Captured} | nomatch
+re:run/2は上のようで，
+re:run/3  run(Subject, RE, Options) -> {match, Captured} | match | nomatch
+1> re:run("The quick brown fox.", "ick").
+{match,[{6,3}]}
+2> re:run("The quick brown fox.", "ick ").
+{match,[{6,4}]}
+3> re:run("The brown fox.", "ick").
+nomatch
+4> re:run(<<"The quick brown fox.">>, "ick").
+{match,[{6,3}]}
+5> re:run("The sick quick brown fox.", "ick", [global]).
+{match,[[{5,3}],[{11,3}]]}
+
+re:replace/3 returns an odd-looking binary, which
+is called an iolist, an efficient data strucure,
+used like this to prevent copying of data in memory
+10> re:replace("The quick brown fox.", "brown", "red").
+[<<"The quick ">>,<<"red">>|<<" fox.">>]
+
+let's use re:replace/4 to provide an option
+replace(Subject, RE, Replacement, Options) -> iodata() | unicode:charlist()
+1> re:replace("The quick brown fox.", "brown", "red", [{return, list}]).
+"The quick red fox."
