@@ -175,6 +175,17 @@ code_change(_OldVsn, State, _Extra) ->
 %%% Internal functions
 %%%======================================================
 
+% four main parts: splitting the input, parsing the function
+% arguments, executing the requested call, and sending 
+% back the result. First, notice that the inner working
+% of the do_rpc/2 function are wrapped in a try expression
+% because you're working on data from the outside world. 
+% several things could go wrong, and this is an easy way to
+% ensure that if the code crashes(throws an exception), you
+% print the error message and continue rather than crashing
+% the entire server process. on the other hand , this does't
+% protect against correct but malignant requests, as you'll see in
+% section 3.3
 do_rpc(Socket, RawData) ->
 	try 
 		{M, F, A} = split_out_mfa(RawData),
