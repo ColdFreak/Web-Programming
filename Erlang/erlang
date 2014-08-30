@@ -119,3 +119,34 @@ nomatch
 5
 18> string:join(["this", "is", "a", "string"], "W").
 "thisWisWaWstring">
+
+
+1> ets:new(ingredients, [set, named_table]).
+ingredients
+2> ets:insert(ingredients, {bacon, great}).
+true
+3> ets:lookup(ingredients, bacon).
+[{bacon,great}]
+4> ets:insert(ingredients, [{bacon, awesome}, {cabbage, alright}]).
+true
+5> ets:lookup(ingredients, bacon).
+[{bacon,awesome}]
+6> ets:lookup(ingredients, cabbage).
+[{cabbage,alright}]
+7> ets:delete(ingredients, cabbage).
+true
+8> ets:lookup(ingredients, cabbage).
+[]
+
+
+
+4> Tabld = ets:new(ingredients, [bag]).
+20496
+5> ets:insert(Tabld, {bacon, delicious}).
+true
+6> ets:insert(Tabld, {bacon, fat}).
+true
+7> ets:insert(Tabld, {bacon, fat}).
+true
+8> ets:lookup(Tabld, bacon).
+[{bacon,delicious},{bacon,fat}]
