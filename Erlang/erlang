@@ -150,3 +150,19 @@ true
 true
 8> ets:lookup(Tabld, bacon).
 [{bacon,delicious},{bacon,fat}]
+
+
+11> ets:new(ingredients, [ordered_set, named_table]).  
+ingredients 
+12> ets:insert(ingredients, [{ketchup, "not much"}, {mustard, "a lot"}, {cheese, "yes", "goat"}, {patty, "moose"}, {onions, "a lot", "caramelized"}]).  
+true 
+13> Res1 = ets:first(ingredients).
+cheese 
+14> Res2 = ets:next(ingredients, Res1).       
+ketchup 
+15> Res3 = ets:next(ingredients, Res2).  
+mustard 
+16> ets:last(ingredients).  
+patty 
+17> ets:prev(ingredients, ets:last(ingredients)).  
+onions
