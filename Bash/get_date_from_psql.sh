@@ -13,7 +13,7 @@ $PSQL \
     -X \
     -h $DB_HOST \
     -U $DB_USER \
-    -c "select folder from my_table" \
+    -c "select folder from my_table where kbn='K1'" \
     --single-transaction \
     --set AUTOCOMMIT=off \
     --set ON_ERROR_STOP=on \
@@ -22,6 +22,6 @@ $PSQL \
     --field-separator ' ' \
     --quiet \
     -d $DB_NAME \
-| while read username password first_name last_name ; do
-   echo $folder 
+| while read folder; do
+   test -d $folder || echo $folder 
 done
