@@ -8,6 +8,7 @@ PSQL=/usr/local/bin/psql
 DB_USER=wang
 DB_HOST=127.0.0.1
 DB_NAME=postgres
+DIR_BASE="/Users/wang/Projects/Web-Programming/Bash"
 
 $PSQL \
     -X \
@@ -23,5 +24,10 @@ $PSQL \
     --quiet \
     -d $DB_NAME \
 | while read folder; do
-   test -d $folder && echo $folder/
+    #if [ ! -z "$folder" -a -d "$DIR_BASE/$folder" ]; then
+    if [ ! -z "$folder" -a -d "$DIR_BASE/$folder/" ]; then
+        echo "removing $DIR_BASE/$folder/ directory's contents..."
+        rm -rf "$DIR_BASE/$folder/"*
+        echo "Directory's contents removed"
+    fi
 done
