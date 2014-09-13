@@ -1,0 +1,4 @@
+rabbitmqのステータスをチェック
+
+        $ rabbitmqctl status
+
