@@ -32,5 +32,13 @@ loop() ->
 %% I don't know the area of a {triangle,2,3,4} is
 %% {triangle,2,3,4}
 
+%% register(AnAtom, Pid)を使った後
+%% 2> Pid = spawn(fun area_server0:loop/0).
+%% <0.36.0>
+%% 3> register(area, Pid).
+%% true
+%% 4> area_server0:rpc(area, {rectangle, 4,5}).
+%% 20
+
 
     
