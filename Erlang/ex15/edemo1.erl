@@ -3,8 +3,13 @@
 
 %% starts processes A, B, C
 start(Bool, M) ->
+    %% A pidがa()関数を実行している
     A = spawn(fun() -> a() end),
+    %% A will be linked to B
+    %% is Bool is true, B will trap exit from A
     B = spawn(fun() -> b(A, Bool) end),
+
+    %% B will to C
     C = spawn(fun() -> c(B, M) end),
     sleep(1000),
     status(b, B),
@@ -16,6 +21,8 @@ a() ->
     wait(a).
 
 b(A, Bool) ->
+    %% B will trap exit if Bool is true
+    %%
     process_flag(trap_exit, Bool),
     link(A),
     wait(b).
