@@ -32,3 +32,17 @@ chef-repo
     The .chef/ directory is a hidden directory that is used to store .pem 
     validation that are provided by the Chef server and a knife.rb file.
     These files are required for interaction with a Chef server.
+
+The syntax for using the 'execute' resource in a recipe is as follows:
+execute "name" do
+    attribute "value"
+    ...
+    action :action
+end
+● 'execute' tells the chef-client to use the Chef::Provider::Execute provider during the chef-client run
+
+
+Every organization begins with a single environment called the '_default' 
+environment, which cannot be modified(or deleted), Additional environments can be created to reflect each organization's patterns and workflow. For example, creating 'production', 'staging', 'testing', and 'development' environments.
+
+An attribute can be defined in an environment and then used to override the default settings on a node. 
