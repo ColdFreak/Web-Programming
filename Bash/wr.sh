@@ -20,51 +20,41 @@ function create_time_string() {
     month=$(echo ${get_time} | cut -d' ' -f1 )
     day=$(echo ${get_time} | cut -d' ' -f2 )
     date=$(echo ${get_time} | cut -d' ' -f3 )
-    time_string="${month}月${day}日 (${date}曜日)"
+    time_string="${month}月${day}日(${date}曜日)"
     echo "$time_string"
 }
 
+declare  -A days_offset=()
 for i in $(seq 0 4)
 do
     case $i in
-        0)
-            day1_string=$(create_time_string ${i})
-            ;;
-        1)
-            day2_string=$(create_time_string ${i})
-            ;;
-        2)
-            day3_string=$(create_time_string ${i})
-            ;;
-        3)
-            day4_string=$(create_time_string ${i})
-            ;;
-        4)
-            day5_string=$(create_time_string ${i})
+        [0-4])
+            days_offset[$i]=$(create_time_string ${i})
             ;;
         *)
+            echo "Unknow date"
+            exit
             ;;
     esac
 done
 
-echo "週報テンプレードを作成しました。"
 
 cat <<- EOF > ~/weekly_report
 h3. 今週の作業報告をいたします。
 
-* $day1_string
+* ${days_offset[0]}
 ** 9:00 ~ 19:00
 ****
-* $day2_string
+* ${days_offset[1]}
 ** 9:00 ~ 19:30
 ****
-* $day3_string
+* ${days_offset[2]}
 ** 9:00 ~ 19:30
 ****
-* $day4_string
+* ${days_offset[3]}
 ** 9:00 ~ 19:30
 ****
-* $day5_string
+* ${days_offset[4]}
 ** 9:00 ~ 19:00
 ****
 
@@ -72,3 +62,5 @@ h3. 社外
 
 h3. 来週予定
 EOF
+
+echo "${HOME}に週報テンプレードを作成しました。"
