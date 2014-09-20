@@ -16,14 +16,27 @@ case $platform in
 esac
 
 function create_time_string() {
+
+    # %a は曜日を表示
     get_time=$(${DATE} -dlast-monday+${1}day '+%m %d %a')
+    
+    # 月を取得
     month=$(echo ${get_time} | cut -d' ' -f1 )
+    
+    # 日を取得
     day=$(echo ${get_time} | cut -d' ' -f2 )
+
+    # 曜日を取得
     date=$(echo ${get_time} | cut -d' ' -f3 )
+
+    # 9月26日(金曜日)　のような形で表示
     time_string="${month}月${day}日(${date}曜日)"
+
     echo "$time_string"
 }
 
+# days_offsetという配列を宣言
+# 動的に変数名を作るため
 declare  -A days_offset=()
 for i in $(seq 0 4)
 do
