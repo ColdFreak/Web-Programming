@@ -1,5 +1,5 @@
 -module(funs).
--export([list_max/1]).
+-export([list_max/1, str_word_count/1]).
 
 %% 空のリストを処理するコードがないと
 %% funs:list_max([]). で実行するとき、エラーが出る
@@ -22,3 +22,20 @@ list_max(M, [H|T]) when H > M ->
 %% 下の2行はそのようなパターンを処理するから
 list_max(M, [_H|T]) ->
     list_max(M, T).
+
+
+%% 文字列のword数をカウントするプログラムで
+%% やり方はワードとスペースの境界線のところで
+%% カウントをプラス１
+str_word_count(Input) ->
+    str_word_count(Input, 0).
+
+str_word_count([], Count) ->
+    Count;
+str_word_count([Last], Count) when Last =/= $\ ->
+    Count+1;
+str_word_count([First, Second | Tail], Count)  when First =/= $\ , Second =:= $\ ->
+    str_word_count([Second|Tail], Count+1);
+str_word_count([_First|Tail], Count) ->
+    str_word_count(Tail, Count).
+
