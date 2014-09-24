@@ -43,7 +43,9 @@ str_word_count([_|Tail], Count) ->
 file_count_chars(Fname) ->
     case file:open(Fname, [read, raw, binary]) of
         {ok, Fd} ->
-            scan_file(Fd, 0, file:read(Fd, 1024));
+            Res = scan_file(Fd, 0, file:read(Fd, 1024)),
+            file:close(Fd),
+            Res;
         {error, Reason} ->
             {error, Reason}
     end.
