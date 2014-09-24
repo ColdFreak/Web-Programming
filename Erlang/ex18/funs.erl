@@ -1,5 +1,5 @@
 -module(funs).
--export([list_max/1, str_word_count/1, file_count_chars/1]).
+-export([list_max/1, str_word_count/1, file_count_chars/1,str_cap_first/1, capitalize/1]).
 
 %% 空のリストを処理するコードがないと
 %% funs:list_max([]). で実行するとき、エラーが出る
@@ -71,3 +71,40 @@ count_x([$x|Tail], Acc) ->
     count_x(Tail, Acc+1);
 count_x([_|Tail], Acc) ->
     count_x(Tail, Acc).
+
+
+capitalize(C) when C >= $a, C =< $z ->
+    C2 = C - ($a-$A),
+    C2;
+capitalize(C) when C >= $A, C =< $Z ->
+    C.
+
+%% 文字列を渡したら、str_cap_first/3を呼び出す。
+str_cap_first(Input) ->
+    str_cap_first(Input, [], 0).
+
+%% 文字列を空になったら、順番を逆にして、出力
+str_cap_first([], Acc, _State) ->
+    lists:reverse(Acc);
+
+%% 最後1文字残るときに
+str_cap_first([Last], Acc, State) when Last =/= $\ , State =:= 0 ->
+    lists:reverse([capitalize(Last)|Acc]);
+
+str_cap_first([First, Second|Tail], Acc, State) when First =/= $\ , State =:= 0 ->
+    str_cap_first([Second|Tail], [capitalize(First)|Acc], 1);
+
+str_cap_first([First, Second|Tail], Acc, State) when First =/= $\ , State =:= 1  ->
+    str_cap_first([Second|Tail], [First|Acc], 1);
+
+str_cap_first([First, Second|Tail], Acc, _State) when First =:= $\ , Second =/= $\  ->
+    str_cap_first(Tail, [capitalize(Second) ,First|Acc], 1);
+
+str_cap_first([First|Tail], Acc, State) when First =:= $\ ,State =:= 0  ->
+    str_cap_first(Tail, [First|Acc], 0);
+
+str_cap_first([First|Tail], Acc, State) when State =:= 1  ->
+    str_cap_first(Tail, [First|Acc], 0).
+
+
+
