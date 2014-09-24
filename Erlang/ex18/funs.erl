@@ -29,13 +29,12 @@ list_max(M, [_H|T]) ->
 %% カウントをプラス１
 str_word_count(Input) ->
     str_word_count(Input, 0).
-
 str_word_count([], Count) ->
     Count;
 str_word_count([Last], Count) when Last =/= $\ ->
     Count+1;
 str_word_count([First, Second | Tail], Count)  when First =/= $\ , Second =:= $\ ->
     str_word_count([Second|Tail], Count+1);
-str_word_count([_First|Tail], Count) ->
+str_word_count([_|Tail], Count) ->
     str_word_count(Tail, Count).
 
