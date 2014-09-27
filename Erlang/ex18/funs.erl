@@ -154,6 +154,8 @@ escape_html([$< | T], Acc) ->
     escape_html(T, lists:reverse("&lt;", Acc));
 escape_html([$> | T], Acc) ->
     escape_html(T, lists:reverse("&gt;", Acc));
+escape_html([$& | T], Acc) ->
+    escape_html(T, lists:reverse("&amp;", Acc));
 escape_html([H | T], Acc) ->
     escape_html(T, [H|Acc]).
 
