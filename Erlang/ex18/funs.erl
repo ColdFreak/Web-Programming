@@ -1,5 +1,5 @@
 -module(funs).
--export([list_max/1, str_word_count/1, file_count_chars/1,str_cap_first/1, capitalize/1, remainder/2, atoi/1]).
+-export([list_max/1, str_word_count/1, file_count_chars/1,str_cap_first/1, capitalize/1, remainder/2, atoi/1, escape_html/1]).
 
 %% 空のリストを処理するコードがないと
 %% funs:list_max([]). で実行するとき、エラーが出る
@@ -139,4 +139,21 @@ atoi([Head|Tail], Acc) when Head >= $1, Head =< $9 ->
 atoi([], Acc) ->
     Acc.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% HTMLの'<', '>'を'&lt;', '&gt;'に変換する関数escape_html/1
+%% 目標時は"<p>"を";tg&p;tl&" に変換して、reverseをかける
+%% lists:reverse("&lt;", Acc)の結果はもともとリストなので、
+%% もう一回[lists:reverse("&lt;", Acc)]する必要はない
+%%
+escape_html(Input) ->
+    escape_html(Input, []).
+
+escape_html([], Acc) ->
+    lists:reverse(Acc);
+escape_html([$< | T], Acc) ->
+    escape_html(T, lists:reverse("&lt;", Acc));
+escape_html([$> | T], Acc) ->
+    escape_html(T, lists:reverse("&gt;", Acc));
+escape_html([H | T], Acc) ->
+    escape_html(T, [H|Acc]).
 
