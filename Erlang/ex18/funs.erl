@@ -1,5 +1,5 @@
 -module(funs).
--export([list_max/1, str_word_count/1, file_count_chars/1,str_cap_first/1, capitalize/1]).
+-export([list_max/1, str_word_count/1, file_count_chars/1,str_cap_first/1, capitalize/1, remainder/2]).
 
 %% 空のリストを処理するコードがないと
 %% funs:list_max([]). で実行するとき、エラーが出る
@@ -22,6 +22,21 @@ list_max(M, [H|T]) when H > M ->
 %% 下の2行はそのようなパターンを処理するから
 list_max(M, [_H|T]) ->
     list_max(M, T).
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% あまりを求める関数remainder(A,B)
+%% 11> timer:tc(funs, remainder, [20000000001,20]). 
+%% {11397368,1}
+%% 10秒以上かかる
+
+remainder(A, B) when A >= B ->
+    remainder(A-B, B);
+remainder(A, _B) ->
+    A.
+
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 文字列のword数をカウントするプログラムで
