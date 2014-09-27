@@ -23,7 +23,7 @@ list_max(M, [H|T]) when H > M ->
 list_max(M, [_H|T]) ->
     list_max(M, T).
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 文字列のword数をカウントするプログラムで
 %% やり方はワードとスペースの境界線のところで
 %% カウントをプラス１
@@ -39,6 +39,7 @@ str_word_count([_|Tail], Count) ->
     str_word_count(Tail, Count).
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% Count characters in a file
 file_count_chars(Fname) ->
     case file:open(Fname, [read, raw, binary]) of
@@ -72,6 +73,7 @@ count_x([$x|Tail], Acc) ->
 count_x([_|Tail], Acc) ->
     count_x(Tail, Acc).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 capitalize(C) when C >= $a, C =< $z ->
     C2 = C - ($a-$A),
@@ -91,15 +93,19 @@ str_cap_first([], Acc, _State) ->
 str_cap_first([Last], Acc, State) when Last =/= $\ , State =:= 0 ->
     lists:reverse([capitalize(Last)|Acc]);
 
+%% 文字列最初から文字から始まる場合(State = 0)
 str_cap_first([First, Second|Tail], Acc, State) when First =/= $\ , State =:= 0 ->
     str_cap_first([Second|Tail], [capitalize(First)|Acc], 1);
 
+%% 連続の文字の場合（Stateはすでに１になっている）
 str_cap_first([First, Second|Tail], Acc, State) when First =/= $\ , State =:= 1  ->
     str_cap_first([Second|Tail], [First|Acc], 1);
 
+%% スペースの文字の境界線の場合
 str_cap_first([First, Second|Tail], Acc, _State) when First =:= $\ , Second =/= $\  ->
     str_cap_first(Tail, [capitalize(Second) ,First|Acc], 1);
 
+%% 連続スペースの場合
 str_cap_first([First|Tail], Acc, State) when First =:= $\ ,State =:= 0  ->
     str_cap_first(Tail, [First|Acc], 0);
 
