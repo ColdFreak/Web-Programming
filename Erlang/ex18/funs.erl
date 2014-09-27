@@ -1,5 +1,5 @@
 -module(funs).
--export([list_max/1, str_word_count/1, file_count_chars/1,str_cap_first/1, capitalize/1, remainder/2]).
+-export([list_max/1, str_word_count/1, file_count_chars/1,str_cap_first/1, capitalize/1, remainder/2, atoi/1]).
 
 %% 空のリストを処理するコードがないと
 %% funs:list_max([]). で実行するとき、エラーが出る
@@ -34,9 +34,6 @@ remainder(A, B) when A >= B ->
     remainder(A-B, B);
 remainder(A, _B) ->
     A.
-
-
-
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% 文字列のword数をカウントするプログラムで
@@ -127,5 +124,19 @@ str_cap_first([First|Tail], Acc, State) when First =:= $\ ,State =:= 0  ->
 str_cap_first([First|Tail], Acc, State) when State =:= 1  ->
     str_cap_first(Tail, [First|Acc], 0).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% 文字列を数字に変換する
+%% 
+%% atoi([$\ | Input]) ->  -1 * atoi(Input, 0);
+%% 上の行はatoi(Input)         -> atoi(Input, 0).の下に置いたらだめ
+%% atoi(Input)         -> atoi(Input, 0).はいつもマッチングされるから
+%% 要は具体的なマッチング変数を前に置くこと
+atoi([$- | Input])  -> -1 * atoi(Input, 0);
+atoi(Input)         -> atoi(Input, 0).
+
+atoi([Head|Tail], Acc) when Head >= $1, Head =< $9 ->
+    atoi(Tail, Acc * 10 + (Head - $0) );
+atoi([], Acc) ->
+    Acc.
 
 
