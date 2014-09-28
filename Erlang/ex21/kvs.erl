@@ -26,5 +26,23 @@ loop() ->
             From ! {kvs, get(Key)}, 
             loop()
     end.
+%%================================================
+%% ProBox:
+%% /etc/hosts
+%% 192.168.100.100 AirBox
+%% 192.168.100.102 ProBox
+%%
+%% $ erl -sname gandalf -setcookie abc
+%% > kvs:start().
+%%
+%%
+%% AirBox:
+%% /etc/hosts
+%% 192.168.100.100 AirBox
+%% 192.168.100.102 ProBox
+%%
+%% $ erl -sname bilbo -setcookie abc
+%% > rpc:call(gandalf@ProBox, kvs, store, [weather, cold]).
+%%================================================
 
 
