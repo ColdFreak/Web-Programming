@@ -174,3 +174,8 @@ onions
      "RabbitMQ","README.md","Socket.IO","Vagrant"]}
 2>
 
+下のfilelib:ensure_dirk関数はabcの親ディレクトリを存在チェックして,あればokを返す
+無かったら，しかも権限があれば，作る，権限なければ{error,eacces}を返す
+
+11> filelib:ensure_dir("/Users/wzj/Projects/kkk/abc").
+ok
