@@ -1,0 +1,9 @@
+{release,{"ex20_release","1"},
+         {erts,"6.1"},
+         [{kernel,"3.0.1"},
+          {stdlib,"2.1"},
+          {ranch,"1.0.0"},
+          {crypto,"3.4"},
+          {cowlib,"1.0.0"},
+          {cowboy,"1.0.0"},
+          {ex20,"0.1.0"}]}. 

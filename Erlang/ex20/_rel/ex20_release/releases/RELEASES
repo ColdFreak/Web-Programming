@@ -1,0 +1,9 @@
+[{release,"ex20_release","1","6.1",
+          [{kernel,"3.0.1","./lib/kernel-3.0.1"},
+           {stdlib,"2.1","./lib/stdlib-2.1"},
+           {ranch,"1.0.0","./lib/ranch-1.0.0"},
+           {crypto,"3.4","./lib/crypto-3.4"},
+           {cowlib,"1.0.0","./lib/cowlib-1.0.0"},
+           {cowboy,"1.0.0","./lib/cowboy-1.0.0"},
+           {ex20,"0.1.0","./lib/ex20-0.1.0"}],
+          permanent}].
