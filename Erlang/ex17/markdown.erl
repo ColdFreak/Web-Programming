@@ -67,6 +67,8 @@ conv_file(FileIn, FileOut) ->
     end.
 
 get_all_lines(Device, Accum) ->
+	%% get_line(IoDevice, Prompt) -> Data | server_no_data()
+	%% server_no_data() = {error, ErrorDescription :: term()} | eof
     case io:get_line(Device,"") of
         eof  -> file:close(Device),
                 Accum;
