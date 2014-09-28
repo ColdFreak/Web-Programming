@@ -1,5 +1,5 @@
 -module(funs).
--export([list_max/1, str_word_count/1, file_count_chars/1,str_cap_first/1, capitalize/1, remainder/2, atoi/1, escape_html/1]).
+-export([list_max/1, str_word_count/1, file_count_chars/1,str_cap_first/1, capitalize/1, remainder/2, atoi/1, escape_html/1, titlecase/1]).
 
 %% 空のリストを処理するコードがないと
 %% funs:list_max([]). で実行するとき、エラーが出る
@@ -159,3 +159,20 @@ escape_html([$& | T], Acc) ->
 escape_html([H | T], Acc) ->
     escape_html(T, [H|Acc]).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% 上のstr_cap_stringよりいい
+titlecase(String) ->
+    titlecase(String, []).
+
+titlecase([], Output) ->
+    lists:reverse(Output);
+
+titlecase([Char | Rest], [] = Output) when Char >= $a, Char =< $z ->
+    titlecase(Rest, [Char + ($A - $a) | Output]);
+
+%% ここが賢い、残りを比べるだけではなく、すで比べたのもパターンマッチングする
+titlecase([Char | Rest], [$\  |_] = Output) when Char >= $a, Char =< $z ->
+    titlecase(Rest, [Char + ($A - $a) | Output]);
+
+titlecase([Char | Rest], Output) ->
+    titlecase(Rest, [Char | Output]).
