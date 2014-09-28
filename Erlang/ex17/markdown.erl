@@ -75,6 +75,9 @@ get_all_lines(Device, Accum) ->
     end.
 
 write(File, Text) ->
+	%% 下のfilelib:ensure_dir関数はabcの親ディレクトリを存在チェックして,あればokを返す
+	%% 無かったら，しかも権限があれば，作る，権限なければ
+	%% {error,eacces}を返す
     _Return=filelib:ensure_dir(File),
     case file:open(File, [write]) of
         {ok, Id} ->
