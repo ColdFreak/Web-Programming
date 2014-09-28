@@ -179,3 +179,13 @@ onions
 
 11> filelib:ensure_dir("/Users/wzj/Projects/kkk/abc").
 ok
+
+簡単のabcdeを入れると複雑なDataをファイルに書き込む
+12> Data = [1,2,3,{car, "Honda"}].
+[1,2,3,{car,"Honda"}]
+15> filelib:ensure_dir("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output").
+ok
+18> file:write_file("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output", "abcde").
+ok
+20> file:write_file("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output", io_lib:fwrite("~p",[Data])).
+ok
