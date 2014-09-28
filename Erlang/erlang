@@ -166,3 +166,11 @@ mustard
 patty 
 17> ets:prev(ingredients, ets:last(ingredients)).  
 onions
+
+ディレクトリを指定して，下の中身をリストにする.file:list_dir()
+1> file:list_dir("/Users/wzj/Projects/Web-Programming").
+{ok,[".git","AngularJS","Bash","Bootstrap","Chef","Cowboy",
+     "elixir","Erlang","Javascript","Nodejs","OSX","Postgresql",
+     "RabbitMQ","README.md","Socket.IO","Vagrant"]}
+2>
+
