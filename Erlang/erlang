@@ -189,3 +189,11 @@ ok
 ok
 20> file:write_file("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output", io_lib:fwrite("~p",[Data])).
 ok
+
+分かりやすいコールバック関数
+1> F = fun(X,Y, Operation) -> Operation(X,Y) end .
+#Fun<erl_eval.18.90072148>
+2> Plus = fun(X, Y) -> X+Y end.
+#Fun<erl_eval.12.90072148>
+3> F(2,45, Plus).
+47
