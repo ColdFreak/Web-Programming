@@ -190,22 +190,24 @@ and the second required by the 're' module
 ok
 
 簡単のabcdeを入れると複雑なDataをファイルに書き込む
-12> Data = [1,2,3,{car, "Honda"}].
-[1,2,3,{car,"Honda"}]
-15> filelib:ensure_dir("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output").
-ok
-18> file:write_file("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output", "abcde").
-ok
-20> file:write_file("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output", io_lib:fwrite("~p",[Data])).
-ok
+  
+        12> Data = [1,2,3,{car, "Honda"}].
+        [1,2,3,{car,"Honda"}]
+        15> filelib:ensure_dir("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output").
+        ok
+        18> file:write_file("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output", "abcde").
+        ok
+        20> file:write_file("/Users/wzj/Projects/Web-Programming/Erlang/ex20/output", io_lib:fwrite("~p",[Data])).
+        ok
 
 分かりやすいコールバック関数
-1> F = fun(X,Y, Operation) -> Operation(X,Y) end .
-#Fun<erl_eval.18.90072148>
-2> Plus = fun(X, Y) -> X+Y end.
-#Fun<erl_eval.12.90072148>
-3> F(2,45, Plus).
-47
+
+        1> F = fun(X,Y, Operation) -> Operation(X,Y) end .
+        #Fun<erl_eval.18.90072148>
+        2> Plus = fun(X, Y) -> X+Y end.
+        #Fun<erl_eval.12.90072148>
+        3> F(2,45, Plus).
+        47
 
 if you call ets:new(some_name, []), 
 you'll be starting a protected set table, 
@@ -218,11 +220,17 @@ documentation purposes and will appear in
 functions such as ets:i(), which print 
 information about all ETS tables in the system.
 注意：An ets table is deleted as soon as its owning process dies
-8> ets:new(ingredients, [set, named_table]).
-9> ets:insert(ingredients, [{bacon, awesome}, {cabbage, alright}]).
-true
-10> ets:insert(ingredients, {bacon, great}).
-true
-11> ets:lookup(ingredients, bacon).
-[{bacon,great}]
 
+        8> ets:new(ingredients, [set, named_table]).
+        9> ets:insert(ingredients, [{bacon, awesome}, {cabbage, alright}]).
+        true
+        10> ets:insert(ingredients, {bacon, great}).
+        true
+        11> ets:lookup(ingredients, bacon).
+        [{bacon,great}]
+
+debugの状況で-compile(export_all)をつかいたいので 
+
+        -ifdef(debug).
+        -compile(export_all).
+        -endif.
