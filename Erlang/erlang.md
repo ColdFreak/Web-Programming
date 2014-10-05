@@ -234,3 +234,29 @@ debugの状況で-compile(export_all)をつかいたいので
         -ifdef(debug).
         -compile(export_all).
         -endif.
+
+Sum starts with the 0(the seed), then the unnamed lambda
+function grabs the first item in the list L and puts it
+into X. Using X and Sum
+
+        7> L = ["I", "like", "Erlang"].
+        ["I","like","Erlang"]
+        8> lists:foldl(fun(X, Sum) -> length(X) + Sum end, 0,L).
+        11
+
+Erlang only has a limited space for atoms, using 
+'list_to_atom' on arbitrary lists can cause the emulator 
+to terminate when this limit is reached. It is possible 
+to use 'list_to_existing_atom/1' with the caveat that it 
+would return a badarg if the atom currently doesn't exist.
+
+        19> list_to_existing_atom("kkk").
+        ** exception error: bad argument
+        in function  list_to_existing_atom/1
+        called as list_to_existing_atom("kkk")
+        20> kkk.
+        kkk
+        21> list_to_existing_atom("kkk").
+        kkk
+
+
