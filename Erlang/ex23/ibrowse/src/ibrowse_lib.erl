@@ -368,6 +368,9 @@ default_port(https) -> 443;
 default_port(ftp)   -> 21.
 
 printable_date() ->
+    %% 例
+    %% 5> calendar:local_time().
+    %% {{2014,10,5},{11,2,3}}
     {{Y,Mo,D},{H, M, S}} = calendar:local_time(),
     {_,_,MicroSecs} = now(),
     [integer_to_list(Y),

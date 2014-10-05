@@ -379,6 +379,7 @@ wait_for_resp(Pid) ->
     end.
 
 i_do_async_req_list(Parent, Url, Method, Options) ->
+    %% lists:member(Elem, List) -> boolean()
     Options_1 = case lists:member(once, Options) of
                     true ->
                         [{stream_to, {self(), once}} | (Options -- [once])];
@@ -560,6 +561,9 @@ test_pipeline_head_timeout(Url) ->
           end,
     Pids = [Fun(X) || X <- [{fixed, 32000} | lists:seq(1,10)]],
     Result = accumulate_worker_resp(Pids),
+    %% lists:all(Pred, List) -> boolean()
+    %% Listの中の要素ElemはPred(Elem)で評価した後にすべて
+    %% trueの場合はlists:all()はtrueを返す。
     case lists:all(fun({_, X_res}) ->
                            X_res == {error,req_timedout}
                    end, Result) of
@@ -592,6 +596,8 @@ accumulate_worker_resp([_ | _] = Pids, Acc) ->
 accumulate_worker_resp([], Acc) ->
     lists:reverse(Acc).
 
+%% ただメールボックスの中身を取り出して、
+%% 捨てるだけ、何もしない
 clear_msg_q() ->
     receive
         _ ->

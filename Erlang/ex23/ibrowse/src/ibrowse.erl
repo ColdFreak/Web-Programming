@@ -746,8 +746,14 @@ init(_) ->
     State = #state{},
     put(my_trace_flag, State#state.trace),
     put(ibrowse_trace_token, "ibrowse"),
+    %% {keypos, Position}
+    %% ETSテーブルはタプルを保存することができる。
+    %% Position変数は１からNまでの整数のいずれかを
+    %% もっていて、各タプルの何番目の要素をデータベース
+    %% の主キーにするかを伝える。
     ibrowse_lb     = ets:new(ibrowse_lb, [named_table, public, {keypos, 2}]),
     ibrowse_conf   = ets:new(ibrowse_conf, [named_table, protected, {keypos, 2}]),
+    %% 'public'はだれもが読み書きできる
     ibrowse_stream = ets:new(ibrowse_stream, [named_table, public]),
     import_config(),
     {ok, #state{}}.

@@ -510,6 +510,9 @@ do_connect(Host, Port, Options, State, Timeout) ->
         {undefined, true} ->
             ssl:connect(Host, Port, SockOptions, Timeout);
         {undefined, false} ->
+            %% 例({active, true} => We want to receive the data as message, )
+            %% 1> {ok, Socket} = gen_tcp:connect({127,0,0,1}, 8091, [binary, {active,true}]).
+            %% {ok,#Port<0.596>}
             gen_tcp:connect(Host, Port, SockOptions, Timeout);
         {_, _} ->
             case {ibrowse_socks5:connect(Host, Port, Options, SockOptions, Timeout),
