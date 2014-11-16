@@ -5,9 +5,6 @@ phpunit単体テストツールをインストール
         $ sudo mv phpunit.phar /usr/local/bin/phpunit
         $ phpunit --version
 
-
----
-
 RemoteConnect.phpファイルを作成する
 
         <?php
