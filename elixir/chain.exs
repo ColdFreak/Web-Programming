@@ -2,6 +2,10 @@ defmodule Chain do
   @doc """
   # 実行し方
   $ elixir -r chain.exs -e "Chain.run(10000)"
+  プロセスの上限を引き上げる
+  $ elixir --erl "+P 500000" -r chain.exs -e "Chain.run(500_000)"
+  {3014386, "Result is 500000"}
+
   """
   def counter(next_pid) do
     receive do
