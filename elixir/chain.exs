@@ -1,4 +1,8 @@
 defmodule Chain do
+  @doc """
+  # 実行し方
+  $ elixir -r chain.exs -e "Chain.run(10000)"
+  """
   def counter(next_pid) do
     receive do
       n ->
