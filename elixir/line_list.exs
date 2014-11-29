@@ -13,4 +13,5 @@ end
 
 fd = File.open!("line_list.exs")
 li = ProcessFile.to_lines(fd)
-IO.puts(Enum.reverse(li))
+# IO.puts inspect Enum.reverse(li)
+IO.puts  Enum.reverse(li)
