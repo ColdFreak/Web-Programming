@@ -1,6 +1,14 @@
 defprotocol Blank do
   @doc "Returns true if data is considered blank/empty"
+  
+  # @fallback_to_any はすべてのタイプはデフォルトの実装を定義する
+  @fallback_to_any true
   def blank?(data)
+end
+
+defimpl Blank, for: Any do
+  # 対応していないタイプではデフォルトで，false
+  def blank?(_), do: false
 end
 defimpl Blank, for: Integer do
   def blank?(_), do: false
