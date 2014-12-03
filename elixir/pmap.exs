@@ -11,6 +11,7 @@ defmodule Parallel do
   require Logger
   def pmap(collection, fun) do
     me = self
+    # shellで実行するときにここのselfとshellのselfは同じ
     Logger.info inspect self
     collection
     |> 
