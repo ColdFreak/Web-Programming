@@ -55,7 +55,7 @@ end
 to_process = [ 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37 ]
 # run()関数をn回走らせる, 毎回to_processリストすべて処理する?
 # そして毎回違う数のプロセスで処理する？
-Enum.each 1..20, fn num_processes ->
+Enum.each 1..5, fn num_processes ->
   {time, result} = :timer.tc(Scheduler, :run, [num_processes, FibSolver, :fib, to_process])
 
   if num_processes == 1 do
