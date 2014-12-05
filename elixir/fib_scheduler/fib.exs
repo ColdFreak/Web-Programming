@@ -4,6 +4,7 @@ defmodule FibSolver do
     receive do
       {:fib, n, client} ->
         send client, {:answer, n, fib_calc(n), self}
+        # FibSolverは計算一回終わったら,準備できたらというメッセージを送る
         fib(scheduler)
       {:shutdown} ->
         exit(:normal)
@@ -54,7 +55,7 @@ end
 to_process = [ 37, 37, 37, 37, 37, 37, 37, 37, 37, 37, 37 ]
 # run()関数をn回走らせる, 毎回to_processリストすべて処理する?
 # そして毎回違う数のプロセスで処理する？
-Enum.each 1..11, fn num_processes ->
+Enum.each 1..20, fn num_processes ->
   {time, result} = :timer.tc(Scheduler, :run, [num_processes, FibSolver, :fib, to_process])
 
   if num_processes == 1 do
