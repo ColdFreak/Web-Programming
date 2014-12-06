@@ -1,4 +1,4 @@
-defmodule SequenceTest do
+defmodule SocketPlaygroundTest do
   use ExUnit.Case
 
   test "the truth" do

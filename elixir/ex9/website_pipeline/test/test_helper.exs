@@ -1,0 +1,3 @@
+ExUnit.start
+HTTPotion.start
+

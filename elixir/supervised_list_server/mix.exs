@@ -1,8 +1,8 @@
-defmodule Sequence.Mixfile do
+defmodule SupervisedListServer.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :sequence,
+    [app: :supervised_list_server,
      version: "0.0.1",
      elixir: "~> 1.1-dev",
      deps: deps]

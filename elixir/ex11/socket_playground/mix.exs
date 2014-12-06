@@ -1,8 +1,8 @@
-defmodule Sequence.Mixfile do
+defmodule SocketPlayground.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :sequence,
+    [app: :socket_playground,
      version: "0.0.1",
      elixir: "~> 1.1-dev",
      deps: deps]
@@ -25,6 +25,8 @@ defmodule Sequence.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [
+      {:socket, "~> 0.2.8"}
+    ]
   end
 end

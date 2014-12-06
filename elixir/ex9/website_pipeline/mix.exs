@@ -1,8 +1,8 @@
-defmodule Sequence.Mixfile do
+defmodule WebsitePipeline.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :sequence,
+    [app: :website_pipeline,
      version: "0.0.1",
      elixir: "~> 1.1-dev",
      deps: deps]
@@ -12,7 +12,9 @@ defmodule Sequence.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [applications: [:logger]]
+    [applications: [:logger, :httpotion],
+      mod: {WebsitePipeline, []}
+    ]
   end
 
   # Dependencies can be Hex packages:
@@ -25,6 +27,8 @@ defmodule Sequence.Mixfile do
   #
   # Type `mix help deps` for more examples and options
   defp deps do
-    []
+    [
+      {:httpotion, github: "myfreeweb/httpotion"}
+    ]
   end
 end
