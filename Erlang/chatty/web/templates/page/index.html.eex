@@ -1,0 +1,35 @@
+      <div id="page-wrapper">
+        <h1>WebSockets Demo</h1>
+
+        <div id="status">Connecting...</div>
+        <ul id="messages"></ul>
+
+        <form id="message-form" action="#" method="post">
+          <textarea id="message" placeholder="Write your message here..." required></textarea>
+          <button type="submit">Send Message</button>
+          <button type="button" id="close">Close Connection</button>
+        </form>
+      </div>
+
+      <script src="/js/phoenix.js" type="text/javascript"></script>
+
+      <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+
+
+      <script type="text/javascript">
+      $(function() {
+          var socket = new Phoenix.Socket("ws://" + location.host + "/ws");
+          $message = $('#message');
+          $messages = $('#messages');
+          socket.join("rooms", "lobby", {}, function(chan) {
+            chan.on("new:message", function(message) {
+              $messages.append("<li>" + message.content + "</li>");
+            });
+          
+            $message.keypress(function(e) {
+                chan.send("new:message", { content: $message.val() });
+                $message.val("");
+            });
+          });
+      });
+      </script>
