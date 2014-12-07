@@ -1,0 +1,48 @@
+<style>
+    #output {
+        height: 400px;
+        max-height: 400px;
+        display: table-cell;
+        vertical-align: bottom;
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div id="output">
+            <p>foo</p>
+            <p>bar</p>
+        </div>
+        <input id="input" class="form-control" />
+        <div id="status"></div>
+    </div>
+</div>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script src="/js/phoenix.js" type="text/javascript"></script>
+<script type="text/javascript">
+    $(function() {
+        var socket = new Phoenix.Socket("ws://" + location.host + "/ws");
+        var $status = $('#status');
+        var $output = $('#output');
+        var $input = $('#input');
+
+        socket.join("shell", "shell", {}, function(chan) {
+            chan.on("join", function(message) {
+                $status.text(message.status);
+            });
+
+            $input.off("keypress").on("keypress", function(e) {
+                if(e.keyCode == 13) {
+                    chan.send("shell:stdin", {data: $input.val()});
+                    $input.val("");
+                }
+            });
+            
+            chan.on("stdout", function(message) {
+                $output.append($("<p>").text(message.data));
+            });
+
+        });
+    });
+</script>
