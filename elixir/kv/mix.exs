@@ -2,15 +2,19 @@ defmodule KV.Mixfile do
   use Mix.Project
 
   def project do
+    # Mix.env returns the mix environment
     [app: :kv,
      version: "0.0.1",
      elixir: "~> 1.1-dev",
-     deps: deps]
+     deps: deps,
+     deps_path: deps_path(Mix.env)
+     ]
   end
 
   # Configuration for the OTP application
   #
   # Type `mix help compile.app` for more information
+  # '.app' file is generated with the information from the application/0 function in the mix.exs
   def application do
     [applications: [:logger]]
   end
@@ -27,4 +31,7 @@ defmodule KV.Mixfile do
   defp deps do
     []
   end
+
+  defp deps_path(:prod), do: "prod_deps"
+  defp deps_path(_), do: "deps"
 end

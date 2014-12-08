@@ -1,3 +1,5 @@
+# Mix can run the particalur test like 
+# $ mix test test/kv_test.exs:4
 defmodule KVTest do
   use ExUnit.Case
 
