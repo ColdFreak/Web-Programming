@@ -25,9 +25,9 @@ cancel(Pid) ->
         {Ref, ok} ->
             % flushの役割は{_, MonitorRef, _, _, _}メッセージを取り除くこと
             erlang:demonitor(Ref, [flush]),
-            ok;
+            {ok, received_cancel};
         {'DOWN', Ref, process, Pid, _Reason} ->
-            ok
+            {ok, down}
     end.
 loop(S = #state{server=Server, to_go=[T|Next]}) ->
     receive
