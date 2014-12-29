@@ -2,7 +2,10 @@
 -behaviour(gen_server).
 
 -record(state, {}).
--export([start_link/0, cal_rpn/1]).
+-export([start_link/0, stop/0]).
+-export([cal_rpn/1]).
+
+%% gen_serverコールバック関数
 -export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3]).
 
 %% start_link(ServerName, Module, Args, Options) -> Result
@@ -19,13 +22,31 @@ init([]) ->
 cal_rpn(L) ->
     gen_server:call(?MODULE, {cal_rpn, L}).
 
+%%--------------------------------------------------------------------
+%% Function: %% handle_call(Request, From, State) -> {reply, Reply, State} |
+%%                                                  {reply, Reply, State, Timeout} |
+%%                                                  {noreply, State} |
+%%                                                  {noreply, State, Timeout} |
+%%                                                  {stop, Reason, Reply, State} |
+%%                                                  {stop, Reason, State}
+%% Description: Handling call message
+%%--------------------------------------------------------------------
 handle_call({cal_rpn, L}, _From, _State) ->
     Reply = do_rpn(L),
     {reply, Reply, _State}.
+
 handle_cast(_Msg, State) ->
     {noreply, State}.
+
 handle_info(_Info, State) ->
     {noreply, State}.
+
+terminate(_Reason, _State) ->
+    io:format("terminating ~p~n", [{local, ?MODULE}]),
+    ok.
+
+code_change(_OldVersion, State, _Extra) ->
+    {ok, State}.
 
 do_rpn(L) when is_list(L) ->
     [Res] = lists:foldl(fun do_rpn/2, [], string:tokens(L, " ")),
@@ -53,8 +74,3 @@ do_rpn(X, Stack)        -> [read(X) | Stack].
 
 
 
-terminate(_Reason, _State) ->
-    io:format("terminating ~p~n", [{local, ?MODULE}]),
-    ok.
-code_change(_OldVersion, State, _Extra) ->
-    {ok, State}.
