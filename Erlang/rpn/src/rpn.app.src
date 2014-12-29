@@ -1,0 +1,12 @@
+{application, rpn,
+ [
+  {description, "Reverse Polish Notation"},
+  {vsn, "1"},
+  {registered, []},
+  {applications, [
+                  kernel,
+                  stdlib
+                 ]},
+  {mod, { rpn_app, []}},
+  {env, []}
+ ]}.
