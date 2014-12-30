@@ -1,0 +1,8 @@
+run_erl [32236] Tue Dec 30 19:27:43 2014
+Args before exec of shell:
+run_erl [32236] Tue Dec 30 19:27:43 2014
+argv[0] = sh
+run_erl [32236] Tue Dec 30 19:27:43 2014
+argv[1] = -c
+run_erl [32236] Tue Dec 30 19:27:43 2014
+argv[2] = exec /Users/wzj/Projects/Web-Programming/Erlang/hello_cowboy/rel/hello_cowboy/bin/hello_cowboy console '' 
