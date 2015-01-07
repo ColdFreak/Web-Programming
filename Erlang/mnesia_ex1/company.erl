@@ -109,4 +109,10 @@ mk_projs(Eno, [ProjName|Tail]) ->
 mk_projs(_, []) ->
     ok.
 
+select_gender(Gender) ->
+    F = fun() ->
+            Female = #employee{sex=Gender, name='$1', _ = '_'},
+            mnesia:select(employee, [{Female, [], ['$1']}])
+        end,
+    mnesia:transaction(F).
 
