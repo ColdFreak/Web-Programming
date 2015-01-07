@@ -4,6 +4,8 @@
 -compile(export_all).
 
 init() ->
+    mnesia:start(),
+
     mnesia:create_table(employee,
                         [{attributes, record_info(fields, employee)}]),
     mnesia:create_table(dept,
@@ -115,4 +117,42 @@ select_gender(Gender) ->
             mnesia:select(employee, [{Female, [], ['$1']}])
         end,
     mnesia:transaction(F).
+
+raise(Eno, Raise) ->
+    F = fun() ->
+            [E] = mnesia:read(employee, Eno, write),
+            Salary = E#employee.salary + Raise,
+            New = E#employee{salary= Salary},
+            mnesia:write(New)
+        end,
+    mnesia:transaction(F).
+
+do(Q) ->
+    F = fun() ->
+            qlc:e(Q) end,
+    {atomic, Val} = mnesia:transaction(F),
+    Val.
+
+select_emp(Eno) ->
+    do(qlc:q([X || X <- mnesia:table(employee),
+                   X#employee.emp_no == Eno])).
+
+raise_females(Amount) ->
+    F = fun() ->
+            Q = qlc:q([ E || E <- mnesia:table(employee),
+                              E#employee.sex == female]),
+            Fs = qlc:e(Q),
+            over_write(Fs, Amount)
+    end,
+    mnesia:transaction(F).
+
+over_write([E | Tail], Amount) ->
+    Salary = E#employee.salary + Amount,
+    New = E#employee{salary = Salary},
+    mnesia:write(New),
+    1 + over_write(Tail, Amount);
+over_write([], _) ->
+    0.
+
+
 
