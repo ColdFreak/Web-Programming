@@ -26,3 +26,15 @@ h1 {
         font:italic 26px Georgia, Serif;
         color: #666;
     }
+
+#transformers-rule {
+    width: 750px;
+    position: relative;
+    margin: 50px auto;
+}
+
+.container {
+    width: 324px;
+    height: 412px;
+    -webkit-perspective: 1000;
+}
