@@ -1,0 +1,28 @@
+body, div, h1, h2, h3, h4, h5, h6, p, ul, ol, li, dl, dt, dd, img, form, fieldset, blockquote {
+    margin:0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    background: #3f3f3f url(wood-bg.jpg);
+    font-family: Helvetica, Arial, Sans-Serif;
+}
+
+h1 {
+    font-size: 50px;
+    text-transform: uppercase;
+    color: #717171;
+    text-shadow: 0 3px 3px #333;
+    text-align:center;
+}
+
+#browser {
+    margin: 0 auto;
+    text-align:center;
+    text-shadow: 0 3px 3px #333;
+}
+    #browser em {
+        font:italic 26px Georgia, Serif;
+        color: #666;
+    }
