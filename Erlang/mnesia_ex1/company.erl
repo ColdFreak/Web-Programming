@@ -116,3 +116,6 @@ select_gender(Gender) ->
         end,
     mnesia:transaction(F).
 
+table_first_key(Tab) ->
+    Fkey = mnesia:dirty_first(Tab),
+    Fkey.
