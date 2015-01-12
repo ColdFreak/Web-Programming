@@ -22,20 +22,22 @@ body {
     height: 680px;
 }
 
+
 .search-box {
     border: 1px solid;
-    width: 400px;
+    width: 600px;
     margin: 0 auto;
 }
 
 .search {
     height: 35px;
-    width: 395px;
+    width: 595px;
     font-size: 20px;
     background: #FFF;
     border: 1px double #DDD;
     border-radius: 5px;
     box-shadow: 0 0 5px #333;
+    text-align: center;
     /* transition: 500ms all ease; */
 
 }
@@ -44,6 +46,44 @@ body {
 /*     width: 400px; */
 /* } */
 
+.flip-container {
+    border: 1px solid #000;
+    perspective: 1000;
+}
+    .flip-container:hover .flipper, .flip-container.hover .flipper {
+        transform: rotateY(180deg);
+}
+
+.flip-container, .front, .back {
+    margin: 0 auto;
+    padding: 20px;
+    width: 550px;
+    height: 200px;
+}
+
+.flipper {
+    transition: 0.3s;
+    transform-style: preserve-3d;
+    position: relative;
+}
+
+.front, .back {
+    backface-visibility: hidden;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.front {
+    z-index: 2;
+    /* for firefox 31 */
+    transform: rotateY(0deg);
+}
+
+.back {
+    transform: rotateY(180deg);
+}
 .footer {
     height: 50px;
     width: 1000px;
