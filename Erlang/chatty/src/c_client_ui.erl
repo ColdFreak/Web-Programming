@@ -1,7 +1,6 @@
--module(c_client_udp).
+-module(c_client_ui).
+-export([main/2]).
 
--export([start_link/0]).
-
--define(REEXPORT_0(M,F), F() -> M:F()).
-
-?REEXPORT_0(c_client, start_link).
+main(ServerAddr, Name) ->
+    {ok, Client} = c_client_udp:start_link(),
+    c_client_udp:connect(Client, ServerAddr),
