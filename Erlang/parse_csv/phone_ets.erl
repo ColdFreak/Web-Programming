@@ -2,7 +2,7 @@
 -include("phone_record.hrl").
 
 -compile(export_all).
-setup() ->
+setup(FileName) ->
     case ets:info(call_table) of
         undefined -> false;
         _ -> ets:delete(call_table)
@@ -20,7 +20,7 @@ setup() ->
     %% passed to the function.
     ets:new(call_table, [named_table, bag, {keypos, #phone_call.phone_number}]),
 
-    {ResultCode, InputFile} = file:open("call_data.csv", [read]),
+    {ResultCode, InputFile} = file:open(FileName, [read]),
     case ResultCode of
         ok ->
             read_item(InputFile);
@@ -45,13 +45,36 @@ read_item(InputFile) ->
 
 
 to_date(Date) ->
-   [Year, Month, Date] = re:split(Date, "-", [{return, list}]),
-   [{Y, _}, {M, _}, {D, _}] =  lists:map(fun string:to_integer/1, [Year, Month, Date]),
+   [Year, Month, Day] = re:split(Date, "-", [{return, list}]),
+   [{Y, _}, {M, _}, {D, _}] =  lists:map(fun string:to_integer/1, [Year, Month, Day]),
    {Y, M, D}.
 
 to_time(Time) ->
-   [Hour, Minute, Second] = re:split(Time, "-", [{return, list}]),
+   [Hour, Minute, Second] = re:split(Time, ":", [{return, list}]),
    [{H, _}, {M, _}, {S, _}] =  lists:map(fun string:to_integer/1, [Hour, Minute, Second]),
    {H, M, S}.
+
+
+summary() ->
+    FirstKey = ets:first(call_table),
+    summary(FirstKey, []).
+summary(Key, Result) ->
+    NextKey = ets:next(call_table, Key),
+    case NextKey of
+        '$end_of_table' -> Result;
+        _ -> summary(NextKey, [hd(summary(Key)) | Result])
+    end.
+
+summary(PhoneNumber) ->
+    Calls = ets:lookup(call_table, PhoneNumber),
+    Total = lists:foldl(fun subtotal/2, 0, Calls),
+    [{PhoneNumber, Total}].
+
+subtotal(Item, Accumulator) ->
+    StartSeconds = calendar:datetime_to_gregorian_seconds(
+                {Item#phone_call.start_date, Item#phone_call.start_time}),
+    EndSeconds = calendar:datetime_to_gregorian_seconds(
+                {Item#phone_call.end_date, Item#phone_call.end_time}),
+    Accumulator + ((EndSeconds - StartSeconds + 59) div 60).
 
 
