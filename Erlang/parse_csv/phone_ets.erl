@@ -33,7 +33,7 @@ read_item(InputFile) ->
     if
         is_list(RawData) ->
             Data = string:strip(RawData, right, $\n),
-            [Number, Sdate, Edate, Stime, Etime] = re:split(Data, ",", [{return, list}]),
+            [Number, Sdate, Stime, Edate, Etime] = re:split(Data, ",", [{return, list}]),
             ets:insert(call_table, #phone_call{phone_number = Number, 
                                                start_date   = to_date(Sdate),
                                                start_time   = to_time(Stime),
