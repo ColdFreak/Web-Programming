@@ -1,0 +1,20 @@
+.col-centered{
+    float: none;
+    margin: 0 auto;
+}
+
+.center {
+    text-align:center;
+}
+
+.center form {
+    display:inline-block;
+}
+
+.top-buffer {
+    margin-top: 40px;
+}
+
+.top-between-line {
+    margin-top: 20px;
+}
