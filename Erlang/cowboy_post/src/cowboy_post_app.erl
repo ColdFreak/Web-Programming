@@ -7,7 +7,7 @@
 start(_Type, _Args) ->
     Dispatch =  cowboy_router:compile([
         {'_', [
-                {"/", cowboy_static, {file, "/Users/wzj/Projects/Web-Programming/Erlang/cowboy_post/priv/static/index.html"}},
+                {"/", cowboy_static, {priv_file, cowboy_post, "static/index.html" }},
                 {"/process", toppage_handler, []}
               ]
         }
