@@ -1,3 +1,4 @@
 -name cowboy_post@127.0.0.1
 -setcookie cowboy_post
 -heart
+-mnesia dir ./mnesia_test
