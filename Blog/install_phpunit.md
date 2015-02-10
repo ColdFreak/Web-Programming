@@ -8,26 +8,26 @@ phpunit単体テストツールをインストール
 RemoteConnect.phpファイルを作成する
 
         <?php
-            class RemoteConnect
-            {
-                public function connectToServer($serverName=null) {
-                    if($serverName==null){
-                        throw new Exception(“That's not a server name!”);
-                }
-                $fp = fsockopen($serverName,80);
-                    return ($fp) ? true : false;
-              }
-
-                public function returnSampleObject() {
-                    return $this;
-                }
+        class RemoteConnect
+        {
+            public function connectToServer($serverName=null) {
+                if($serverName==null){
+                    throw new Exception(“That's not a server name!”);
             }
-            ?>
+            $fp = fsockopen($serverName,80);
+                return ($fp) ? true : false;
+          }
 
-        <?php
+            public function returnSampleObject() {
+                return $this;
+            }
+        }
+        ?>
+
 
 RemoteConnectTest.phpファイルを作成して、connectToServer()関数をテストする
 
+        <?php
         require_once('RemoteConnect.php');
 
         class RemoteConnectTest extends PHPUnit_Framework_TestCase
@@ -39,7 +39,7 @@ RemoteConnectTest.phpファイルを作成して、connectToServer()関数をテ
                 // test to ensure that the object from an fsockopen is valid
                 $connObj = new RemoteConnect();
                 $serverName = 'www.google.com';
-                <his->assertTrue($connObj->connectToServer($serverName) !== false);
+                this->assertTrue($connObj->connectToServer($serverName) !== false);
             }
         }
         ?>
