@@ -54,3 +54,6 @@ setUp()とtearDown()関数は補助関数で、setUp()はすべてのテスト�
 tearDown()はすべてのテストの後に実行される。fsockopen()は、ファイルポインタを返す。
 
 失敗した場合はFALSEを返す。
+
+ユニットテストに$_POST情報の使い方は[このリンク](http://stackoverflow.com/questions/2722897/post-parameters-to-phpunit-test)に紹介されています。
+
