@@ -25,7 +25,8 @@ RemoteConnect.phpファイルを作成する
         ?>
 
 
-RemoteConnectTest.phpファイルを作成して、connectToServer()関数をテストする
+RemoteConnectTest.phpファイルを作成して、connectToServer()関数をテストする。
+テストケースのクラス名RemoteConnectの後ろにTestをつける.
 
         <?php
         require_once('RemoteConnect.php');
