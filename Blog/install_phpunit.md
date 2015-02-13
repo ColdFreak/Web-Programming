@@ -57,3 +57,42 @@ tearDown()はすべてのテストの後に実行される。fsockopen()は、�
 
 ユニットテストに$_POST情報の使い方は[このリンク](http://stackoverflow.com/questions/2722897/post-parameters-to-phpunit-test)に紹介されています。
 
+----
+
+テストケースに引数を渡したいときに`@dataProvider`アノテーションを使います。
+例としてはDataTest.phpファイルを作成します。
+
+        <?php
+        class DataTest extends PHPUnit_Framework_TestCase
+        {
+            /**
+             * @dataProvider additionProvider
+             */
+            public function testAdd($a, $b, $expected)
+            {
+                $this->assertEquals($expected, $a + $b);
+            }
+
+            public function additionProvider()
+            {
+                return array(
+                  array(0, 0, 0),
+                  array(0, 1, 1),
+                  array(1, 0, 1),
+                  array(1, 1, 3)
+                );
+            }
+        }
+        ?>
+
+上の例ではtestAddに渡したいパラメータは`@dataProvider`を通して、データのプロバイダ`additionProvider()`関数を指定しています.
+実行すると下のようになります。
+
+        $ phpunit DataTest.php
+        PHPUnit 4.3.4 by Sebastian Bergmann.
+
+        ....
+
+        Time: 22 ms, Memory: 2.75Mb
+
+        OK (4 tests, 4 assertions)
