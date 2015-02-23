@@ -9,5 +9,6 @@ gcd(A, 0) ->
 gcd(A, B) -> 
         gcd(B, A rem B).
  
+%% gcd(A, B)*lcm(A, B) = A*B
 lcm(A,B) ->
         io:format("~p~n", [abs(A*B div gcd(A,B))]).
