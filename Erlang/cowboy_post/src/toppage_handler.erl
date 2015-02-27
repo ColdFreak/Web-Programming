@@ -34,8 +34,12 @@ echo(Echo, Req) ->
 do_rpn(B) when is_binary(B) ->
     L = binary_to_list(B),
     [Res] = lists:foldl(fun do_rpn/2, [], string:tokens(L, " ")),
-    R = list_to_binary(integer_to_list(Res)),
-    R.
+    case is_float(Res) of
+        true ->
+            list_to_binary(float_to_list(Res, [{decimals, 2}]));
+        false ->
+            list_to_binary(integer_to_list(Res))
+    end.
 
 read(N) ->
     case string:to_float(N) of
