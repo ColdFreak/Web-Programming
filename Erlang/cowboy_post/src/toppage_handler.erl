@@ -6,7 +6,6 @@
 
 
 -include_lib("stdlib/include/qlc.hrl").
--include_lib("phone_records.hrl").
 
 init(Req, Opts) ->
     Method = cowboy_req:method(Req),
@@ -17,7 +16,8 @@ init(Req, Opts) ->
 maybe_echo(<<"POST">>, true, Req) ->
     {ok, PostVals, Req2} = cowboy_req:body_qs(Req),
     Echo = proplists:get_value(<<"echo">>, PostVals),
-    echo(Echo, Req2);
+    Result = do_rpn(Echo),
+    echo(Result, Req2);
 maybe_echo(<<"POST">>, false, Req) ->
     cowboy_req:reply(400, [], <<"Missing body.">>, Req);
 maybe_echo(_, _, Req) ->
@@ -30,3 +30,34 @@ echo(Echo, Req) ->
     cowboy_req:reply(200, [
         {<<"content-type">>, <<"text/plain; charset=utf-8">>}
     ], Echo, Req).
+
+do_rpn(B) when is_binary(B) ->
+    L = binary_to_list(B),
+    [Res] = lists:foldl(fun do_rpn/2, [], string:tokens(L, " ")),
+    case is_float(Res) of
+        true ->
+            list_to_binary(float_to_list(Res, [{decimals, 2}]));
+        false ->
+            list_to_binary(integer_to_list(Res))
+    end.
+
+read(N) ->
+    case string:to_float(N) of
+        {error, no_float} ->
+            list_to_integer(N);
+        {F, _} ->
+            F
+    end.
+
+do_rpn("+", [N1, N2|S]) -> [N2 + N1|S];
+do_rpn("-", [N1, N2|S]) -> [N2 - N1|S];
+do_rpn("*", [N1, N2|S]) -> [N2 * N1|S];
+do_rpn("/", [N1, N2|S]) -> [N2 / N1|S];
+do_rpn("^", [N1, N2|S]) -> [math:pow(N2, N1)|S];
+do_rpn("ln", [N|S])     -> [math:log(N)|S];
+do_rpn("log10", [N|S])  -> [math:log10(N)|S];
+% sumの場合も同じで、戻り値はfoldlの二個目の引数を書き換える
+% 要はアキュミュレータは足されていく
+do_rpn("sum", Stack)    -> [lists:sum(Stack)];
+do_rpn(X, Stack)        -> [read(X) | Stack].
+
