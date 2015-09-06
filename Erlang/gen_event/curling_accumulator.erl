@@ -1,3 +1,23 @@
+%% 6> {ok, Pid} = curling:start_link("Pigeons", "Eagles").
+%% Scoreboard: Team Pigeons vs. Team Eagles
+%% {ok,<0.53.0>}
+%% 7> curling:add_points(Pid, "Pigeons", 2).
+%% Scoreboard: increased score of team Pigeons by 1
+%% Scoreboard: increased score of team Pigeons by 1
+%% ok
+%% 8> curling:next_round(Pid).
+%% Scoreboard: round over
+%% ok
+%% 9> curling:add_points(Pid, "Eagles", 3).
+%% Scoreboard: increased score of team Eagles by 1
+%% Scoreboard: increased score of team Eagles by 1
+%% ok
+%% Scoreboard: increased score of team Eagles by 1
+%% 10> curling:next_round(Pid).
+%% Scoreboard: round over
+%% ok
+%% 11> curling:game_info(Pid).
+%% {[{"Eagles",3},{"Pigeons",2}],{round,2}}
 -module(curling_accumulator).
 -behaviour(gen_event).
 
@@ -14,7 +34,7 @@ handle_event({set_teams, TeamA, TeamB}, S = #state{teams=T}) ->
     Teams = orddict:store(TeamA, 0, orddict:store(TeamB, 0, T)),
     {ok, S#state{teams=Teams}};
 handle_event({add_points, Team, N}, S=#state{teams=T}) ->
-    Teams  = orddict:update_count(Team, N, T),
+    Teams  = orddict:update_counter(Team, N, T),
     {ok, S#state{teams=Teams}};
 handle_event(next_round, S=#state{}) ->
     {ok, S#state{round= S#state.round+1}};
