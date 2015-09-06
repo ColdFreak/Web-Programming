@@ -11,6 +11,16 @@ init([]) ->
 %% 非同期に働くという点で、gen_serverのhandle_cast/2と似た動作をする
 %% 戻り値は{ok, NewState, hibernate}の場合は、イベントマネージャ全体が
 %% ハイバネートすることになる
+handle_event({set_teams, TeamA, TeamB}, State) ->
+    %% ここは実装
+    curling_scoreboard_hw:set_teams(TeamA, TeamB),
+    {ok, State};
+handle_event({add_points, Team, N}, State) ->
+    [curling_scoreboard_hw:add_point(Team) || _ <- lists:seq(1, N)],
+    {ok, State};
+handle_event(next_round, State) ->
+    curling_scoreboard_hw:next_round(),
+    {ok, State};
 handle_event(_, State) ->
     {ok, State}.
 

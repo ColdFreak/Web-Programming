@@ -12,7 +12,7 @@ add_point(Team) ->
 
 %% @doc 次のラウンドへの移行イベント
 next_round() ->
-    io:format("Scoreboard: round over").
+    io:format("Scoreboard: round over~n").
     
 %% @doc 新しい試合を始めるときに使うだけ
 %% プロトコルの一部である必要はない
