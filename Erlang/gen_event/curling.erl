@@ -36,6 +36,12 @@ leave_feed(Pid, HandlerId) ->
     gen_event:delete_handler(Pid, HandlerId, leave_feed).
 
 %% @doc いまゲームに関するデータを返す
+%% call(EventMgrRef, Handler, Request) -> Result
+%% call(EventMgrRef, Handler, Request, Timeout) -> Result
+%% Makes a synchronous call to the event handler Handler 
+%% installed in the event manager EventMgrRef by sending a request 
+%% and waiting until a reply arrives or a timeout occurs.
+
 game_info(Pid) ->
     gen_event:call(Pid, curling_accumulator, game_data).
 
